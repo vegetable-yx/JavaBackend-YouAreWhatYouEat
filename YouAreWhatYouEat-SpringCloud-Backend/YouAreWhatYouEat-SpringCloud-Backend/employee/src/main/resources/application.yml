@@ -1,0 +1,13 @@
+server:
+  port: 8084 # port
+
+spring:
+  application:
+    name: employee # ???????
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8082/eureka/
+  instance:
+    prefer-ip-address: true
