@@ -9,4 +9,6 @@ public interface AssetRepository
         JpaRepository<AssetsEntity, String>,
         JpaSpecificationExecutor<AssetRepository> {
     AssetsEntity findAssetsEntitiesByAssetsType(String assetsType);
+
+    AssetsEntity findAssetsEntitiesByAssetsId(String assetsId);
 }

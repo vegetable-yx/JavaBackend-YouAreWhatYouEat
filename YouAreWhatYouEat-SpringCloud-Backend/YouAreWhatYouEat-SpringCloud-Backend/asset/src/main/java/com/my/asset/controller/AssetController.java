@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
+
 @Controller
 @RequestMapping(value = "/asset")
 public class AssetController {
@@ -20,8 +22,8 @@ public class AssetController {
     @GetMapping("test")
     @ResponseBody
     @CrossOrigin
-    public AssetsEntity getAssets(@RequestParam String assetsType) {
-        return assetsService.getAssets(assetsType);
+    public Collection<AssetsEntity> getAssets(@RequestParam String name) {
+        return assetsService.getAssetsByEmployeeName(name);
     }
 
 }

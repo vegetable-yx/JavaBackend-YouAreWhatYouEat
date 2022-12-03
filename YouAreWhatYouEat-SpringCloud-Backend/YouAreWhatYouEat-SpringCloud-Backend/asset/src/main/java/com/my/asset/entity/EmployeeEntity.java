@@ -15,7 +15,7 @@ public class EmployeeEntity {
     private String gender;
     private String occupation;
     private Date birthday;
-    private Collection<AssetsEntity> assetsById;
+    public Collection<AssetsEntity> assetsById;
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
