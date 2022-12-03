@@ -1,30 +1,27 @@
 package com.my.asset.controller;
 
-import com.my.asset.dto.AssetMessage;
-import com.my.asset.service.AssetService;
+import com.my.asset.entity.AssetsEntity;
+import com.my.asset.service.AssetsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.Map;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping(value = "/asset")
 public class AssetController {
 
-    private AssetService assetService;
+    private AssetsService assetsService;
 
     @Autowired
-    public AssetController(AssetService assetService) {
-        this.assetService = assetService;
+    public AssetController(AssetsService assetsService) {
+        this.assetsService = assetsService;
     }
 
-    @GetMapping("/")
+    @GetMapping("test")
     @ResponseBody
-    public AssetMessage getAsset(@RequestParam String assets_type) {
-        return this.assetService.getAsset(assets_type);
+    @CrossOrigin
+    public AssetsEntity getAssets(@RequestParam String assetsType) {
+        return assetsService.getAssets(assetsType);
     }
+
 }

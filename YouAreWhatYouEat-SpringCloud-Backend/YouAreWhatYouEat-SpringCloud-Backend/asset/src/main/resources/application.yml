@@ -4,6 +4,10 @@ server:
 spring:
   application:
     name: asset
+  datasource:
+    url: jdbc:oracle:thin:@106.14.212.200:1521:XE
+    username: yang
+    password: yx123
 
 eureka:
   client:
