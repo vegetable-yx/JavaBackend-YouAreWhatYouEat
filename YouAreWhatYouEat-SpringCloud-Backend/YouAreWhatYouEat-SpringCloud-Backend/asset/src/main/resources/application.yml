@@ -1,0 +1,14 @@
+server:
+  port: 8085 # port
+
+spring:
+  application:
+    name: asset # ???????
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8082/eureka/
+  instance:
+    prefer-ip-address: true
+
