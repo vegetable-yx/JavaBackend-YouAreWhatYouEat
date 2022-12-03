@@ -22,6 +22,21 @@
         <module>eureka</module>
         <module>employee</module>
         <module>pay</module>
+        <module>asset</module>
+        <module>dishes</module>
+        <module>ingredient</module>
+        <module>ingredientRecords</module>
+        <module>order</module>
+        <module>orderDish</module>
+        <module>orderLists</module>
+        <module>prize</module>
+        <module>promotion</module>
+        <module>salary</module>
+        <module>schedule</module>
+        <module>sensor</module>
+        <module>table</module>
+        <module>vip</module>
+        <module>authen</module>
     </modules>
 
     <properties>
