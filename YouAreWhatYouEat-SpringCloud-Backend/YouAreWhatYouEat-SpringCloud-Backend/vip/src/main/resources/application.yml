@@ -1,0 +1,13 @@
+server:
+  port: 18099 # port
+
+spring:
+  application:
+    name: vip
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:18082/eureka/
+  instance:
+    prefer-ip-address: true
