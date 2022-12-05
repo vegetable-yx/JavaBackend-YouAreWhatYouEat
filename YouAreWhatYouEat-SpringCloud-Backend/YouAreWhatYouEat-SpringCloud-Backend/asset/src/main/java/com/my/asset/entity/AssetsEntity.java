@@ -3,6 +3,7 @@ package com.my.asset.entity;
 import jakarta.persistence.*;
 
 import java.math.BigInteger;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -12,8 +13,9 @@ public class AssetsEntity {
     private String assetsType;
     private BigInteger employeeId;
     private BigInteger assetsStatus;
+    private Collection<RepairEntity> repairEntities;
+    private Collection<ManageEntity> manageEntities;
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "ASSETS_ID", nullable = false, length = 50)
     public String getAssetsId() {
@@ -65,5 +67,35 @@ public class AssetsEntity {
     @Override
     public int hashCode() {
         return Objects.hash(assetsId, assetsType, employeeId, assetsStatus);
+    }
+
+    @Override
+    public String toString() {
+        return "AssetsEntity{" +
+                "assetsId='" + assetsId + '\'' +
+                ", assetsType='" + assetsType + '\'' +
+                ", employeeId=" + employeeId +
+                ", assetsStatus=" + assetsStatus +
+                ", repairEntities=" + repairEntities +
+                ", manageEntities=" + manageEntities +
+                '}';
+    }
+
+    @OneToMany(mappedBy = "assetsid")
+    public Collection<RepairEntity> getRepairEntities() {
+        return this.repairEntities;
+    }
+
+    public void setRepairEntities(Collection<RepairEntity> repairEntities) {
+        this.repairEntities = repairEntities;
+    }
+
+    @OneToMany(mappedBy = "assetsId")
+    public Collection<ManageEntity> getManageEntities() {
+        return this.manageEntities;
+    }
+
+    public void setManageEntities(Collection<ManageEntity> manageEntities) {
+        this.manageEntities = manageEntities;
     }
 }

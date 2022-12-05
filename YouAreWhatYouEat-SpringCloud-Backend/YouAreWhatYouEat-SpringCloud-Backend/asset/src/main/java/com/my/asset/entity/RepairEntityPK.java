@@ -15,7 +15,6 @@ public class RepairEntityPK implements Serializable {
 
     @Column(name = "ASSETSID", nullable = false, length = 50)
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public String getAssetsid() {
         return assetsid;
     }
@@ -26,7 +25,6 @@ public class RepairEntityPK implements Serializable {
 
     @Column(name = "LONGITUDE", nullable = false, length = 30)
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public String getLongitude() {
         return longitude;
     }
@@ -37,7 +35,6 @@ public class RepairEntityPK implements Serializable {
 
     @Column(name = "LATITUDE", nullable = false, length = 30)
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public String getLatitude() {
         return latitude;
     }

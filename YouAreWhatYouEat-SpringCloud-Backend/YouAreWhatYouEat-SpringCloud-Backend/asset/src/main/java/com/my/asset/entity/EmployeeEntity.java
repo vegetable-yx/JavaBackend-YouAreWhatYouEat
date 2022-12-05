@@ -16,6 +16,7 @@ public class EmployeeEntity {
     private String occupation;
     private Date birthday;
     public Collection<AssetsEntity> assetsById;
+    public Collection<ManageEntity> manageEntities;
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -88,5 +89,14 @@ public class EmployeeEntity {
 
     public void setAssetsById(Collection<AssetsEntity> assetsById) {
         this.assetsById = assetsById;
+    }
+
+    @OneToMany(mappedBy = "employeeId")
+    public Collection<ManageEntity> getManageEntities() {
+        return this.manageEntities;
+    }
+
+    public void setManageEntities(Collection<ManageEntity> manageEntities) {
+        this.manageEntities = manageEntities;
     }
 }

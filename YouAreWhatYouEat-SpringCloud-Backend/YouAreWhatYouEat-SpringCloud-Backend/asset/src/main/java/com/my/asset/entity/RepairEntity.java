@@ -13,9 +13,7 @@ public class RepairEntity {
     private String phone;
     private String longitude;
     private String latitude;
-    private AssetsEntity assetsByAssetsid;
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "ASSETSID", nullable = false, length = 50)
     public String getAssetsid() {
@@ -46,7 +44,6 @@ public class RepairEntity {
         this.phone = phone;
     }
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "LONGITUDE", nullable = false, length = 30)
     public String getLongitude() {
@@ -57,7 +54,6 @@ public class RepairEntity {
         this.longitude = longitude;
     }
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "LATITUDE", nullable = false, length = 30)
     public String getLatitude() {
@@ -81,13 +77,4 @@ public class RepairEntity {
         return Objects.hash(assetsid, name, phone, longitude, latitude);
     }
 
-    @ManyToOne
-    @JoinColumn(referencedColumnName = "ASSETS_ID")
-    public AssetsEntity getAssetsByAssetsid() {
-        return assetsByAssetsid;
-    }
-
-    public void setAssetsByAssetsid(AssetsEntity assetsByAssetsid) {
-        this.assetsByAssetsid = assetsByAssetsid;
-    }
 }

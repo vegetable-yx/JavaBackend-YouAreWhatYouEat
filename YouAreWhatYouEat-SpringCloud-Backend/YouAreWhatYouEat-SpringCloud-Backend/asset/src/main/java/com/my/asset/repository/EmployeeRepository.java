@@ -10,5 +10,4 @@ public interface EmployeeRepository
         extends
         JpaRepository<EmployeeEntity, BigInteger>,
         JpaSpecificationExecutor<EmployeeEntity> {
-    public EmployeeEntity findByName(String name);
 }
