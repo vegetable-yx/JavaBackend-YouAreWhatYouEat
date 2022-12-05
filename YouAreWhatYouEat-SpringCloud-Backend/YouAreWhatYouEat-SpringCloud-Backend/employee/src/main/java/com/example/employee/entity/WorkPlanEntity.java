@@ -15,7 +15,6 @@ public class WorkPlanEntity {
     private String occupation;
     private BigInteger no;
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "ID")
     public BigInteger getId() {

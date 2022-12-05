@@ -1,29 +1,30 @@
 package com.example.employee.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 import java.sql.Date;
 
-@Entity
-@Table(name = "PAYROLL", schema = "YANG", catalog = "")
-@IdClass(PayrollEntityPK.class)
-public class PayrollEntity {
-    private Date payDatetime;
+public class AttendEntityPK implements Serializable {
+    private BigInteger planId;
     private BigInteger employeeId;
 
+    @Column(name = "PLAN_ID")
     @Id
-    @Column(name = "PAY_DATETIME")
-    public Date getPayDatetime() {
-        return payDatetime;
+    public BigInteger getPlanId() {
+        return planId;
     }
 
-    public void setPayDatetime(Date payDatetime) {
-        this.payDatetime = payDatetime;
+    public void setPlanId(BigInteger planId) {
+        this.planId = planId;
     }
 
-    @Id
     @Column(name = "EMPLOYEE_ID")
+    @Id
     public BigInteger getEmployeeId() {
         return employeeId;
     }
@@ -37,9 +38,10 @@ public class PayrollEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        PayrollEntity that = (PayrollEntity) o;
+        AttendEntityPK that = (AttendEntityPK) o;
 
-        if (payDatetime != null ? !payDatetime.equals(that.payDatetime) : that.payDatetime != null) return false;
+        if (planId != null ? !planId.equals(that.planId) : that.planId != null)
+            return false;
         if (employeeId != null ? !employeeId.equals(that.employeeId) : that.employeeId != null) return false;
 
         return true;
@@ -47,7 +49,7 @@ public class PayrollEntity {
 
     @Override
     public int hashCode() {
-        int result = payDatetime != null ? payDatetime.hashCode() : 0;
+        int result = planId != null ? planId.hashCode() : 0;
         result = 31 * result + (employeeId != null ? employeeId.hashCode() : 0);
         return result;
     }

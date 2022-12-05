@@ -16,7 +16,6 @@ public class PrizeEntityPK implements Serializable {
 
     @Column(name = "PRIZE_DATETIME")
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Date getPrizeDatetime() {
         return prizeDatetime;
     }
@@ -27,7 +26,6 @@ public class PrizeEntityPK implements Serializable {
 
     @Column(name = "EMPLOYEE_ID")
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public BigInteger getEmployeeId() {
         return employeeId;
     }
@@ -38,7 +36,6 @@ public class PrizeEntityPK implements Serializable {
 
     @Column(name = "LV")
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public String getLv() {
         return lv;
     }

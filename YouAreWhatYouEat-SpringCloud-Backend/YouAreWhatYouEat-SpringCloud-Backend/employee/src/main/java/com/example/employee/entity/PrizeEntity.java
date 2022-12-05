@@ -13,7 +13,6 @@ public class PrizeEntity {
     private BigInteger employeeId;
     private String lv;
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "PRIZE_DATETIME")
     public Date getPrizeDatetime() {
@@ -24,7 +23,6 @@ public class PrizeEntity {
         this.prizeDatetime = prizeDatetime;
     }
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "EMPLOYEE_ID")
     public BigInteger getEmployeeId() {
@@ -35,7 +33,6 @@ public class PrizeEntity {
         this.employeeId = employeeId;
     }
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "LV")
     public String getLv() {

@@ -11,7 +11,6 @@ public class AwardEntity {
     private Integer amount;
     private Collection<PrizeEntity> prizes;
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "LV")
     public String getLv() {

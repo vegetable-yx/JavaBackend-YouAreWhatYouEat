@@ -17,8 +17,8 @@ public class EmployeeEntity {
     private Collection<AssetsEntity> assetsById;
     private Collection<PayrollEntity> parolls;
     private Collection<PrizeEntity> prizes;
+    private Collection<AttendEntity> attends;
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "ID")
     public BigInteger getId() {
@@ -115,4 +115,9 @@ public class EmployeeEntity {
     public Collection<PrizeEntity> getPrizes() { return prizes; }
 
     public void setPrizes(Collection<PrizeEntity> prizes) { this.prizes = prizes; }
+
+    @OneToMany(mappedBy = "employeeId")
+    public Collection<AttendEntity> getAttends() { return attends; }
+
+    public void setAttends(Collection<AttendEntity> attends) { this.attends = attends; }
 }

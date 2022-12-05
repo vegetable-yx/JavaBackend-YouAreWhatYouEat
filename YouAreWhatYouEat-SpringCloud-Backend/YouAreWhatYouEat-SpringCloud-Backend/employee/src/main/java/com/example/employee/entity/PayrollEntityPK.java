@@ -15,7 +15,6 @@ public class PayrollEntityPK implements Serializable {
 
     @Column(name = "PAY_DATETIME")
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Date getPayDatetime() {
         return payDatetime;
     }
@@ -26,7 +25,6 @@ public class PayrollEntityPK implements Serializable {
 
     @Column(name = "EMPLOYEE_ID")
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public BigInteger getEmployeeId() {
         return employeeId;
     }

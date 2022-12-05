@@ -12,7 +12,7 @@ public class AssetsEntity {
     private BigInteger employeeId;
     private BigInteger assetsStatus;
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Id
     @Column(name = "ASSETS_ID")
     public String getAssetsId() {
