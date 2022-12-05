@@ -13,8 +13,8 @@ public class TableServiceImpl implements TableService {
     @Resource
     private TableRepository tableRepository;
 
-    public DinningtableEntity findByTableId(){
-        DinningtableEntity table = tableRepository.findByTableId(BigInteger.valueOf(1));
+    public DinningtableEntity findByTableId(BigInteger id){
+        DinningtableEntity table = tableRepository.findByTableId(id);
         System.out.println(table);
         return table;
     }

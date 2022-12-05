@@ -1,5 +1,5 @@
 package com.example.table;
-
+/*
 import com.example.table.entity.DinningtableEntity;
 import com.example.table.repository.TableRepository;
 import org.junit.jupiter.api.Test;
@@ -20,3 +20,4 @@ public class TableTest {
         System.out.println(table);
     }
 }
+*/

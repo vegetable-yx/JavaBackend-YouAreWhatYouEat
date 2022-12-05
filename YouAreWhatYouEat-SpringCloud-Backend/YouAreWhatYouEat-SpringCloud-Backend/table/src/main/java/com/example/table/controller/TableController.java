@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.math.BigInteger;
+
 @Controller
 public class TableController {
     private TableService tableService;
@@ -19,7 +21,7 @@ public class TableController {
     @ResponseBody
     public DinningtableEntity findByTableId()
     {
-        DinningtableEntity table=this.tableService.findByTableId();
+        DinningtableEntity table=this.tableService.findByTableId(BigInteger.valueOf(1));
         return table;
     }
 }
