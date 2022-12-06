@@ -10,4 +10,4 @@ eureka:
     serviceUrl:
       defaultZone: http://localhost:18082/eureka/
   instance:
-    prefer-ip-address: true
+    ip-address: localhost:18082
