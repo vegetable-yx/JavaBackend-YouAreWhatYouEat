@@ -17,6 +17,9 @@ public class DishesEntity {
 
     private Collection<DishHasTagEntity> tags;
 
+    private Collection<DisheNeedIngrEntity> ings;
+
+
 
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -91,4 +94,14 @@ public class DishesEntity {
     public void setTags(Collection<DishHasTagEntity> tags) {
         this.tags = tags;
     }
+
+    @OneToMany(mappedBy = "dishId")
+    public Collection<DisheNeedIngrEntity> getIngs(){return ings;}
+
+    public void setIngs(Collection<DisheNeedIngrEntity> ings) {
+        this.ings = ings;
+    }
+
+
+
 }

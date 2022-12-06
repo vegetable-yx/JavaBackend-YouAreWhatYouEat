@@ -1,4 +1,5 @@
 package com.example.dishes.dto.Dish;
+import com.example.dishes.Entity.DishHasTagEntity;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;

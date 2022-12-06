@@ -3,6 +3,7 @@ package com.example.dishes.Entity;
 import jakarta.persistence.*;
 
 import java.math.BigInteger;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -11,6 +12,8 @@ import java.util.Objects;
 public class DishHasTagEntity {
     private BigInteger dishId;
     private BigInteger dtagId;
+
+
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -46,4 +49,6 @@ public class DishHasTagEntity {
     public int hashCode() {
         return Objects.hash(dishId, dtagId);
     }
+
+
 }
