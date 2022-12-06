@@ -67,7 +67,7 @@ public class EmployeeController {
 
     // add a new employee
     @RequestMapping(value = "employees", method = RequestMethod.POST)
-    public ResponseEntity addEmployee(@ModelAttribute OneEmployeeInDto employeeDto)
+    public ResponseEntity addEmployee(@RequestBody OneEmployeeInDto employeeDto)
     {
         if (employeeService.addEmployee(employeeDto)) {
             return new ResponseEntity(HttpStatus.CREATED);
@@ -78,7 +78,7 @@ public class EmployeeController {
 
     // update a new employee
     @RequestMapping(value = "employees", method = RequestMethod.PUT)
-    public ResponseEntity updateEmployee(@ModelAttribute OneEmployeeInDto employeeDto)
+    public ResponseEntity updateEmployee(@RequestBody OneEmployeeInDto employeeDto)
     {
         if (employeeService.updateEmployee(employeeDto)) {
             return new ResponseEntity(HttpStatus.OK);
