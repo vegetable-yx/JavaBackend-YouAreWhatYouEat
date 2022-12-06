@@ -1,40 +1,44 @@
 package com.example.employee.service.impl;
 
-import com.example.employee.dto.AllEmployeeInfoDto;
-import com.example.employee.dto.OneEmployeeDto;
-import com.example.employee.entity.AttendEntity;
-import com.example.employee.entity.EmployeeEntity;
-import com.example.employee.entity.PrizeEntity;
-import com.example.employee.repository.AttendRepository;
-import com.example.employee.repository.EmployeeRepository;
+import com.example.employee.dto.*;
+import com.example.employee.entity.*;
+import com.example.employee.repository.*;
 import com.example.employee.service.EmployeeService;
 import jakarta.annotation.Resource;
-import jakarta.persistence.criteria.CriteriaBuilder;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.modelmapper.ModelMapper;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
+    @Value("${myConfiguration.url}")
+    private String baseUrl;
     @Resource
     private EmployeeRepository employeeRepository;
 
     @Resource
     private AttendRepository attendRepository;
 
+    @Resource
+    private WorkPlanRepository workPlanRepository;
+
+    @Resource
+    private AwardRepository awardRepository;
+
+    @Resource
+    private SalaryRepository salaryRepository;
+
     @Override
-    public List<AllEmployeeInfoDto> getAllEmployeeInfo() {
+    public List<AllEmployeeInfoOutDto> getAllEmployeeInfo() {
         List<EmployeeEntity> employeeEntities = employeeRepository.findAll();
-        List<AllEmployeeInfoDto> result = new ArrayList<>();
+        List<AllEmployeeInfoOutDto> result = new ArrayList<>();
         ModelMapper modelMapper = new ModelMapper();
         for(EmployeeEntity employeeEntity : employeeEntities) {
-            AllEmployeeInfoDto allEmployeeInfoDto = modelMapper.map(employeeEntity, AllEmployeeInfoDto.class);
-            allEmployeeInfoDto.setAvatar("testUrl" + allEmployeeInfoDto.getId());
+            AllEmployeeInfoOutDto allEmployeeInfoDto = modelMapper.map(employeeEntity, AllEmployeeInfoOutDto.class);
+            allEmployeeInfoDto.setAvatar(baseUrl + "employees/employee_" + allEmployeeInfoDto.getId() + ".png");
 
             // get attendance rate
             // List<AttendEntity> attends = attendRepository.findAllByEmployeeId(employeeEntity.getId());
@@ -59,7 +63,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public boolean addEmployee(OneEmployeeDto employeeDto) {
+    public boolean addEmployee(OneEmployeeInDto employeeDto) {
         long id = Long.valueOf(employeeDto.getId());
         Optional<EmployeeEntity> tem = employeeRepository.findById(BigInteger.valueOf(id));
         if (!tem.isEmpty()) return false;
@@ -80,7 +84,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public boolean updateEmployee(OneEmployeeDto employeeDto) {
+    public boolean updateEmployee(OneEmployeeInDto employeeDto) {
         long id = Long.valueOf(employeeDto.getId());
         Optional<EmployeeEntity> tem = employeeRepository.findById(BigInteger.valueOf(id));
         if (tem.isEmpty()) return false;
@@ -111,5 +115,67 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
 
         return true;
+    }
+
+    @Override
+    public OneEmployeeOutDto getOneEmployeeInfo(String id) {
+        Long long_id = Long.valueOf(id);
+        BigInteger int_id = BigInteger.valueOf(long_id);
+        Optional<EmployeeEntity> employee = employeeRepository.findById(int_id);
+        OneEmployeeOutDto oneEmployeeOutDto = null;
+
+        if (employee.isEmpty()) return null;
+        else {
+            EmployeeEntity employeeEntity = employee.get();
+            ModelMapper modelMapper = new ModelMapper();
+            oneEmployeeOutDto = modelMapper.map(employeeEntity, OneEmployeeOutDto.class);
+            oneEmployeeOutDto.setAvatar(baseUrl + "employees/employee_" + oneEmployeeOutDto.getId() + ".png");
+            oneEmployeeOutDto.setCover(baseUrl + "covers/cover_" + oneEmployeeOutDto.getId() + ".png");
+            oneEmployeeOutDto.setAttends(new HashSet<>());
+            oneEmployeeOutDto.setPayrolls(new HashSet<>());
+            oneEmployeeOutDto.setPrizes(new HashSet<>());
+
+            for (AttendEntity attend : employeeEntity.getAttends()) {
+                AttendInfo info = new AttendInfo();
+                info.setPlan_id(attend.getPlanId().toString());
+                info.setAttendance(attend.getAttendance() == BigInteger.ONE);
+
+                BigInteger planId = attend.getPlanId();
+                WorkPlanEntity workPlan = workPlanRepository.findFirstById(planId);
+                info.setPlace(workPlan.getPlace());
+                info.setTime_start(workPlan.getTimeStart().toString());
+                info.setTime_end(workPlan.getTimeEnd().toString());
+                oneEmployeeOutDto.getAttends().add(info);
+            }
+
+            for (PayrollEntity payroll : employeeEntity.getParolls()) {
+                PayrollInfo info = new PayrollInfo();
+                info.setPay_datetime(payroll.getPayDatetime().toString());
+
+                String occupation = employeeEntity.getOccupation();
+                info.setAmount(salaryRepository.findFirstByOccupation(occupation).getAmount());
+                oneEmployeeOutDto.getPayrolls().add(info);
+            }
+
+            for (PrizeEntity prize : employeeEntity.getPrizes()) {
+                PrizeInfo info = new PrizeInfo();
+                info.setPrize_datetime(prize.getPrizeDatetime().toString());
+                info.setLevel(prize.getLv());
+                info.setAmount(Double.valueOf(awardRepository.findFirstByLv(prize.getLv()).getAmount()));
+                oneEmployeeOutDto.getPrizes().add(info);
+            }
+        }
+        return oneEmployeeOutDto;
+    }
+
+    @Override
+    public List<EmployeeSimpleInfoOutDto> getAllEmployeeSimpleInfo() {
+        List<EmployeeSimpleInfoOutDto> result = new ArrayList<>();
+        ModelMapper modelMapper = new ModelMapper();
+        for (EmployeeEntity employee : employeeRepository.findAll()) {
+            EmployeeSimpleInfoOutDto info = modelMapper.map(employee, EmployeeSimpleInfoOutDto.class);
+            result.add(info);
+        }
+        return result;
     }
 }

@@ -1,15 +1,18 @@
 package com.example.employee.service;
 
-import com.example.employee.dto.AllEmployeeInfoDto;
-import com.example.employee.dto.OneEmployeeDto;
-import com.example.employee.entity.EmployeeEntity;
+import com.example.employee.dto.AllEmployeeInfoOutDto;
+import com.example.employee.dto.EmployeeSimpleInfoOutDto;
+import com.example.employee.dto.OneEmployeeInDto;
+import com.example.employee.dto.OneEmployeeOutDto;
 
-import java.util.Collection;
+import java.math.BigInteger;
 import java.util.List;
 
 public interface EmployeeService {
-    public List<AllEmployeeInfoDto> getAllEmployeeInfo();
-    public boolean addEmployee(OneEmployeeDto employee);
-    public boolean updateEmployee(OneEmployeeDto employee);
+    public List<AllEmployeeInfoOutDto> getAllEmployeeInfo();
+    public boolean addEmployee(OneEmployeeInDto employee);
+    public boolean updateEmployee(OneEmployeeInDto employee);
     public boolean deleteEmployee(String id);
+    public OneEmployeeOutDto getOneEmployeeInfo(String id);
+    public List<EmployeeSimpleInfoOutDto> getAllEmployeeSimpleInfo();
 }
