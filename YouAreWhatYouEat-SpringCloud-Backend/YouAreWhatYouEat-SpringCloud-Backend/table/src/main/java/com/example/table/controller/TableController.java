@@ -1,20 +1,18 @@
 package com.example.table.controller;
 
-import com.example.table.dto.AllTableInfoDto;
+import com.example.table.dto.*;
 import com.example.table.entity.DinningtableEntity;
 import com.example.table.service.TableService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigInteger;
 import java.util.List;
 
 @Controller
+@RequestMapping(value = "/api/v1")
 public class TableController {
     private TableService tableService;
 
@@ -23,7 +21,7 @@ public class TableController {
         this.tableService=tableService;
     }
 
-    @RequestMapping("/test")
+    @RequestMapping("/testTable")
     @ResponseBody
     public DinningtableEntity findByTableId()
     {
@@ -39,6 +37,30 @@ public class TableController {
         AllTableInfoDto result = tableService.findAllTables();
         if (result==null) return new ResponseEntity(HttpStatus.NO_CONTENT);
         return new ResponseEntity<AllTableInfoDto>(result, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/table", method = RequestMethod.PUT)
+    public ResponseEntity setTableStatus(@RequestBody PutTableParam info)
+    {
+        System.out.println(info);
+
+        if(tableService.setTableStatus(info))
+        {
+            return new ResponseEntity(HttpStatus.OK);
+        }
+        else
+        {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/seat", method = RequestMethod.GET)
+    public ResponseEntity<QueueTableRespond> assignSeat(@RequestBody QueueTableRequest req)
+    {
+        System.out.println(req);
+
+        QueueTableRespond result=tableService.getQueueTable(req);
+        return new ResponseEntity<QueueTableRespond>(result, HttpStatus.OK);
     }
 
 }

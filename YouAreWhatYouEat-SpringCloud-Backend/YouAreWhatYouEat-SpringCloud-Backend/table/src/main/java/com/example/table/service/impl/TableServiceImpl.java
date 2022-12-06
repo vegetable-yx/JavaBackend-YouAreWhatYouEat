@@ -1,9 +1,6 @@
 package com.example.table.service.impl;
 
-import com.example.table.dto.AllTableInfoDto;
-import com.example.table.dto.AllTableSummary2Dto;
-import com.example.table.dto.AllTableSummaryDto;
-import com.example.table.dto.TableInfoDto;
+import com.example.table.dto.*;
 import com.example.table.entity.DinningtableEntity;
 import com.example.table.repository.TableRepository;
 import com.example.table.service.TableService;
@@ -13,17 +10,84 @@ import org.modelmapper.ModelMapper;
 
 import java.math.BigInteger;
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class TableServiceImpl implements TableService {
     @Resource
     private TableRepository tableRepository;
 
+    private Integer queueNum=0;
+
     @Override
     public DinningtableEntity findByTableId(BigInteger id){
         DinningtableEntity table = tableRepository.findByTableId(id);
         //System.out.println(table);
         return table;
+    }
+
+    @Override
+    public boolean setTableStatus(PutTableParam info){
+        DinningtableEntity dinningtableEntity=new DinningtableEntity();
+        dinningtableEntity.setTableId(info.getTable_id() );
+        dinningtableEntity.setTableCapacity(info.getTable_capacity());
+        dinningtableEntity.setOccupied(info.getOccupied());
+        dinningtableEntity.setCustomerNumber(info.getCustomer_number());
+
+        DinningtableEntity tem = tableRepository.findByTableId(dinningtableEntity.getTableId());
+        if (tem==null) return false;
+
+        try {
+            tableRepository.saveAndFlush(dinningtableEntity);
+        } catch (Exception e) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public QueueTableRespond getQueueTable(QueueTableRequest req)
+    {
+        QueueTableRespond res=new QueueTableRespond(false,null,null);
+        List<DinningtableEntity> tableEntities=tableRepository.findAll();
+
+        //Integer tot=0;
+        for(DinningtableEntity tableEntity : tableEntities)
+        {
+            if(!(tableEntity.getOccupied()=="是"))
+            {
+                //tot++;
+                if(tableEntity.getTableCapacity().intValue()>=req.getCustomer_number().intValue())
+                {
+                    res.setHas_table(true);
+                    res.setTable_id(tableEntity.getTableId().toString());
+                    break;
+                }
+            }
+        }
+
+        if(res.isHas_table()==false)
+        {
+            String queue;
+
+            Random random=new Random();
+            int i= random.nextInt(0,2);
+            if(i==0)
+            {
+                queue="A";
+            } else if (i==1) {
+                queue="B";
+            }else {
+                queue="C";
+            }
+
+            queue=queue+queueNum.toString();
+            queueNum++;
+            res.setQueue_id(queue);
+        }
+
+        return res;
     }
 
     @Override
