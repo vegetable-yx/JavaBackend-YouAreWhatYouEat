@@ -3,10 +3,7 @@ package com.example.dishes.Service.impl;
 import com.example.dishes.Entity.DishHasTagEntity;
 import com.example.dishes.Entity.DisheNeedIngrEntity;
 import com.example.dishes.Entity.DishesEntity;
-import com.example.dishes.Repository.CommentRepository;
-import com.example.dishes.Repository.DishTagsRepository;
-import com.example.dishes.Repository.DishesRepository;
-import com.example.dishes.Repository.IngredientsRepository;
+import com.example.dishes.Repository.*;
 import com.example.dishes.Service.DishesService;
 import com.example.dishes.dto.Dish.GetDishItem;
 
@@ -44,6 +41,12 @@ public class DishesServiceImpl implements DishesService {
 
     @Resource
     private CommentRepository commentRepository;
+
+    @Resource
+    private DishHasTagRepository dishHasTagRepository;
+
+    @Resource
+    private DishNeedIngrRepository dishNeedIngrRepository;
 
     @Override
     public List<GetDishItem> getAllDishes() {
@@ -109,5 +112,29 @@ public class DishesServiceImpl implements DishesService {
     @Override
     public HttpStatus putUpdateDish(PutDishItem item) {
         return null;
+    }
+
+    @Transactional
+    @Override
+    public HttpStatus deleteDish(BigInteger id) {
+
+        System.out.println(123123123);
+        if(id==null){
+            return HttpStatus.BAD_REQUEST;
+        }
+        Collection<DishesEntity> info=dishesRepository.findFirstByDishId(id);
+        if(info.isEmpty()){
+            return HttpStatus.NO_CONTENT;
+        }
+        try{
+            dishesRepository.deleteByDishId(id);
+            dishHasTagRepository.deleteByDishId(id);
+            dishNeedIngrRepository.deleteByDishId(id);
+            return HttpStatus.OK;
+        }
+        catch (Exception e){
+            return HttpStatus.BAD_REQUEST;
+        }
+
     }
 }

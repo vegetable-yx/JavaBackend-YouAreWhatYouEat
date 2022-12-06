@@ -1,5 +1,6 @@
 package com.example.dishes.Repository;
 
+import com.example.dishes.Entity.DishesEntity;
 import com.example.dishes.Entity.DishtagsEntity;
 import com.example.dishes.Entity.IngredientsEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,5 +15,7 @@ public interface IngredientsRepository
 
     @Query("select distinct p.ingrName from IngredientsEntity p where p.ingrId=?1")
     Collection<String> findNameById(BigInteger Id);
+
+
 
 }

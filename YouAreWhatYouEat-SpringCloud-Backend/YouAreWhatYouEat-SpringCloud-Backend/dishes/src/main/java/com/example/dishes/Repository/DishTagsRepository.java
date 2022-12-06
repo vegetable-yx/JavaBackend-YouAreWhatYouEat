@@ -2,6 +2,7 @@ package com.example.dishes.Repository;
 
 import com.example.dishes.Entity.DishesEntity;
 import com.example.dishes.Entity.DishtagsEntity;
+import jakarta.transaction.Transactional;
 import org.hibernate.mapping.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -15,4 +16,6 @@ public interface DishTagsRepository
 
     @Query("SELECT distinct  p.dtagName from DishtagsEntity p where p.dtagId=?1  ")
     Collection<String> FindDtagNameById(BigInteger id);
+
+
 }

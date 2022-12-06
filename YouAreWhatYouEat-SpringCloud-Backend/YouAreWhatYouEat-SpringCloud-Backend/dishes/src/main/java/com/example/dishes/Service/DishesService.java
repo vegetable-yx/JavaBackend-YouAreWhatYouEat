@@ -6,6 +6,7 @@ import com.example.dishes.dto.Dish.PostDishItem;
 import com.example.dishes.dto.Dish.PutDishItem;
 import org.springframework.http.HttpStatus;
 
+import java.math.BigInteger;
 import java.util.List;
 
 public interface DishesService {
@@ -14,4 +15,6 @@ public interface DishesService {
     HttpStatus postAddDish(PostDishItem item);
 
     HttpStatus putUpdateDish(PutDishItem item);
+
+    HttpStatus deleteDish(BigInteger id);
 }

@@ -10,7 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.math.BigInteger;
 import java.util.List;
 
 @Slf4j
@@ -25,7 +27,7 @@ public class DishesController {
         this.dishesService = dishesService;
     }
 
-    @GetMapping("")
+    @GetMapping("/detailedInfo")
      public ResponseEntity<Object> getAllDishes(){
         List<GetDishItem> ls=dishesService.getAllDishes();
         if(ls==null){
@@ -35,6 +37,12 @@ public class DishesController {
             return ResponseEntity.ok(ls);
         }
     }
+    @GetMapping("")
+    public ResponseEntity<Object> deleteDish(@RequestParam String id){
+        System.out.println(123);
+        return  new ResponseEntity<>(dishesService.deleteDish(new BigInteger(id)));
+    }
+
 
 
 
