@@ -20,7 +20,7 @@ public class IngredientRecordEntity {
     private Integer price;
     private BigInteger directorId;
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Id
     @Column(name = "RECORD_ID", nullable = false, precision = 0)
     public BigInteger getRecordId() {

@@ -16,7 +16,7 @@ public class CommentOnDishEntity {
     private BigInteger stars;
     private String commentContent;
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Id
     @Column(name = "COMMENT_ID", nullable = false, length = 50)
     public String getCommentId() {

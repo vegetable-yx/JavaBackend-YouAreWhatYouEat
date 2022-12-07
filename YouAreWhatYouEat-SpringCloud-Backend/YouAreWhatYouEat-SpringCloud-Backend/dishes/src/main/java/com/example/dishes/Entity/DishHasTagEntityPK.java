@@ -15,7 +15,6 @@ public class DishHasTagEntityPK implements Serializable {
 
     @Column(name = "DISH_ID", nullable = false, precision = 0)
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public BigInteger getDishId() {
         return dishId;
     }
@@ -26,7 +25,6 @@ public class DishHasTagEntityPK implements Serializable {
 
     @Column(name = "DTAG_ID", nullable = false, precision = 0)
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public BigInteger getDtagId() {
         return dtagId;
     }

@@ -13,7 +13,7 @@ public class IngredientsEntity {
     private String ingrDescription;
     private String ingrType;
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Id
     @Column(name = "INGR_ID", nullable = false, precision = 0)
     public BigInteger getIngrId() {

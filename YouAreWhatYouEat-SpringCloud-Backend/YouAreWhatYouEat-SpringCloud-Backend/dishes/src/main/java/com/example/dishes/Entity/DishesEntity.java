@@ -22,7 +22,7 @@ public class DishesEntity {
 
 
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Id
     @Column(name = "DISH_ID", nullable = false, precision = 0)
     public BigInteger getDishId() {

@@ -13,7 +13,7 @@ public class DisheNeedIngrEntityPK implements Serializable {
     private BigInteger dishId;
     private BigInteger ingrId;
 
-    @Column(name = "DISH_ID", nullable = false, precision = 0)
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public BigInteger getDishId() {
@@ -26,7 +26,6 @@ public class DisheNeedIngrEntityPK implements Serializable {
 
     @Column(name = "INGR_ID", nullable = false, precision = 0)
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public BigInteger getIngrId() {
         return ingrId;
     }

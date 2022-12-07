@@ -15,7 +15,7 @@ public class DishHasTagEntity {
 
 
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Id
     @Column(name = "DISH_ID", nullable = false, precision = 0)
     public BigInteger getDishId() {
@@ -26,7 +26,7 @@ public class DishHasTagEntity {
         this.dishId = dishId;
     }
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Id
     @Column(name = "DTAG_ID", nullable = false, precision = 0)
     public BigInteger getDtagId() {

@@ -32,5 +32,8 @@ public interface DishesRepository
     @Query("SELECT p.dishName FROM DishesEntity p where p.dishId=?1")
     List<String> findDishNameByDishId(BigInteger id);
 
+    @Query("SELECT p.video FROM DishesEntity p where p.dishId=?1")
+    List<String> findVideoByDishId(BigInteger id);
+
 
 }

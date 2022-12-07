@@ -14,7 +14,7 @@ public class OrderlistEntity {
     private BigInteger tableId;
     private String orderStatus;
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Id
     @Column(name = "ORDER_ID", nullable = false, length = 50)
     public String getOrderId() {

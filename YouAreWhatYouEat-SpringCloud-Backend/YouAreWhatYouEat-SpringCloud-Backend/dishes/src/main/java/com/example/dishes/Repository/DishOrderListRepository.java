@@ -16,8 +16,16 @@ public interface DishOrderListRepository extends JpaRepository<DishorderlistEnti
     @Query("select distinct orderId,dishOrderId FROM  DishorderlistEntity group by orderId")
     List<String> findAllId();
 
-    @Query("SELECT p.dishId FROM DishorderlistEntity p where p.orderId=?1")
-    List<BigInteger> findDishIdbyOrOrderId(String id);
+    @Query("SELECT p.dishId FROM DishorderlistEntity p where p.dishOrderId=?1")
+    List<BigInteger> findDishIdByDishOrderId(String id);
 
+    @Query("SELECT p.orderId FROM DishorderlistEntity p where p.dishOrderId=?1")
+    List<String> findOrderIdByDishOrderId(String id);
+
+    @Query("SELECT p.finalPayment FROM DishorderlistEntity p where p.dishOrderId=?1")
+    List<BigInteger> findPayIdByDishOrderId(String id);
+
+    @Query("SELECT p.remark FROM DishorderlistEntity p where p.dishOrderId=?1")
+    List<String> findRemarkIdByDishOrderId(String id);
 
 }

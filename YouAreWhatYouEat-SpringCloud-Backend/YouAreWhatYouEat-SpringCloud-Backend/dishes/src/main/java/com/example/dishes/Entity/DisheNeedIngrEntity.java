@@ -12,7 +12,7 @@ public class DisheNeedIngrEntity {
     private BigInteger dishId;
     private BigInteger ingrId;
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Id
     @Column(name = "DISH_ID", nullable = false, precision = 0)
     public BigInteger getDishId() {
@@ -23,7 +23,7 @@ public class DisheNeedIngrEntity {
         this.dishId = dishId;
     }
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Id
     @Column(name = "INGR_ID", nullable = false, precision = 0)
     public BigInteger getIngrId() {

@@ -2,14 +2,18 @@ package com.example.dishes.Service.impl;
 
 
 import com.example.dishes.Entity.DishorderlistEntity;
+import com.example.dishes.Entity.OrderlistEntity;
 import com.example.dishes.Repository.*;
 import com.example.dishes.dto.Dish.PutDishItem;
 import com.example.dishes.dto.List.GetOrderListItem;
 import com.example.dishes.dto.List.OrderDishItem;
+import com.example.dishes.dto.List.PatchUpdateDishStatus;
+import com.example.dishes.dto.List.PatchUpdateOrderStatus;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -108,9 +112,47 @@ public class OrderListService implements com.example.dishes.Service.OrderListSer
 
         return result;
     }
-
+    @Transactional
     @Override
-    public HttpStatus putUpdateDishStatus(PutDishItem item) {
-        return null;
+    public HttpStatus putUpdateDishStatus(PatchUpdateDishStatus item) {
+
+    if(dishOrderListRepository.findPayIdByDishOrderId(item.getDishOrderId())==null){
+        return HttpStatus.BAD_REQUEST;
+    }
+    DishorderlistEntity dishorderlistEntity=new DishorderlistEntity();
+    dishorderlistEntity.setRemark(dishOrderListRepository.findRemarkIdByDishOrderId(item.getDishOrderId()).get(0));
+    dishorderlistEntity.setDishId(dishOrderListRepository.findDishIdByDishOrderId(item.getDishOrderId()).get(0));
+    dishorderlistEntity.setOrderId(dishOrderListRepository.findOrderIdByDishOrderId(item.getDishOrderId()).get(0));
+    dishorderlistEntity.setFinalPayment(dishOrderListRepository.findPayIdByDishOrderId(item.getDishOrderId()).get(0).intValue());
+    dishorderlistEntity.setDishOrderId(item.getDishOrderId());
+    dishorderlistEntity.setDishStatus(item.getDishStatus());
+        try {
+            dishOrderListRepository.saveAndFlush( dishorderlistEntity);
+            return HttpStatus.OK;
+        }
+        catch (Exception e){
+            return HttpStatus.BAD_REQUEST;
+        }
+
+    }
+    @Transactional
+    @Override
+    public HttpStatus putUpdateOrderStatus(PatchUpdateOrderStatus item) {
+        if(orderListRepository.findOrderStatusById(item.getOrderId())==null){
+            return HttpStatus.BAD_REQUEST;
+        }
+        OrderlistEntity orderlistEntity=new OrderlistEntity();
+        orderlistEntity.setOrderId(item.getOrderId());
+        orderlistEntity.setOrderStatus(item.getOrderStatus());
+        orderlistEntity.setCreationTime(orderListRepository.findCreationTimeById(item.getOrderId()).get(0));
+        orderlistEntity.setTableId(orderListRepository.findTableIdById(item.getOrderId()).get(0));
+        try {
+            orderListRepository.saveAndFlush(orderlistEntity);
+            return HttpStatus.OK;
+        }
+        catch (Exception e){
+            return HttpStatus.BAD_REQUEST;
+        }
+
     }
 }

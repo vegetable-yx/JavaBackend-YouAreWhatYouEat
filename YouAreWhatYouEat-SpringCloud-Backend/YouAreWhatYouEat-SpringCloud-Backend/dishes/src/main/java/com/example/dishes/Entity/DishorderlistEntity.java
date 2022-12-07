@@ -15,7 +15,7 @@ public class DishorderlistEntity {
     private String dishStatus;
     private String remark;
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Id
     @Column(name = "DISH_ORDER_ID", nullable = false, length = 50)
     public String getDishOrderId() {

@@ -6,6 +6,7 @@ import com.example.dishes.dto.Dish.PostDishItem;
 import com.example.dishes.dto.Dish.PutDishItem;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+import oracle.jdbc.proxy.annotation.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,11 +45,15 @@ public class DishesController {
     }
 
     @PostMapping("")
-    public ResponseEntity<Object> postAddRepair(@RequestBody PostDishItem p) {
+    public ResponseEntity<Object> postAddDish(@RequestBody PostDishItem p) {
         System.out.println(p.toString());
         return new ResponseEntity<>(dishesService.postAddDish(p));
     }
-
+    @PatchMapping  ("")
+    public ResponseEntity<Object> putUpdateDish(@RequestBody PutDishItem p) {
+        System.out.println(p.toString());
+        return new ResponseEntity<>(dishesService.putUpdateDish(p));
+    }
 
 
 

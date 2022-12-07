@@ -13,13 +13,14 @@ import com.example.dishes.dto.Dish.PutDishItem;
 import com.example.dishes.dto.List.GetOrderListItem;
 import com.example.dishes.dto.List.OrderDishItem;
 import jakarta.annotation.Resource;
-import jakarta.transaction.Transactional;
+
 import jdk.swing.interop.SwingInterOpUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -110,7 +111,7 @@ public class DishesServiceImpl implements DishesService {
     return result;
     }
 
-
+    @Transactional
     @Override
     public HttpStatus postAddDish(PostDishItem item) {
 
@@ -176,7 +177,59 @@ public class DishesServiceImpl implements DishesService {
     @Transactional
     @Override
     public HttpStatus putUpdateDish(PutDishItem item) {
-        return null;
+
+        try {
+            dishHasTagRepository.deleteByDishId(item.getId());
+            dishNeedIngrRepository.deleteByDishId(item.getId());
+            commentRepository.deleteByDishId(item.getId());
+        }
+        catch (Exception e){
+            return HttpStatus.BAD_REQUEST;
+        }
+
+
+        DishesEntity dishesEntity=new DishesEntity();
+
+        dishesEntity.setDishDescription(item.getDescription());
+        dishesEntity.setDishName(item.getDishName());
+        dishesEntity.setDishPrice(item.getPrice());
+        dishesEntity.setDishId(item.getId());
+        dishesEntity.setVideo(dishesRepository.findVideoByDishId(item.getId()).get(0));
+        try {
+            System.out.println("Dish CHENGGONG");
+            System.out.println(dishesEntity.toString());
+            dishesRepository.saveAndFlush(dishesEntity);
+        }
+        catch (Exception e){
+            return HttpStatus.BAD_REQUEST;
+        }
+        for(String ingName:item.getIngs()){
+            DishHasTagEntity dishHasTagEntity=new DishHasTagEntity();
+            List<BigInteger> id=ingredientsRepository.findIdByName(ingName);
+            dishHasTagEntity.setDishId(item.getId());
+            dishHasTagEntity.setDtagId(id.get(0));
+            try {
+                dishHasTagRepository.saveAndFlush(dishHasTagEntity);
+            }
+            catch (Exception e){
+                return HttpStatus.BAD_REQUEST;
+            }
+
+        }
+        for (String tagName:item.getTags()){
+            DisheNeedIngrEntity disheNeedIngrEntity=new DisheNeedIngrEntity();
+            disheNeedIngrEntity.setDishId(item.getId());
+            disheNeedIngrEntity.setIngrId(dishTagsRepository.FindIdByName(tagName).get(0));
+            try {
+                dishNeedIngrRepository.saveAndFlush(disheNeedIngrEntity);
+
+            }
+            catch (Exception e){
+                return HttpStatus.BAD_REQUEST;
+            }
+        }
+
+        return HttpStatus.OK;
     }
 
     @Transactional
