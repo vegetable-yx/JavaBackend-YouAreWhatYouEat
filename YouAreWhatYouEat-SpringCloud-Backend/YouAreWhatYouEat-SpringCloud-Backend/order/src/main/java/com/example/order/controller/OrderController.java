@@ -1,5 +1,6 @@
 package com.example.order.controller;
 
+import com.example.order.dto.AllOrderInfo;
 import com.example.order.dto.OrderByTableQuery;
 import com.example.order.dto.OrderInfoDto;
 import com.example.order.service.OrderService;
@@ -22,5 +23,12 @@ public class OrderController {
     public OrderInfoDto getOrderByTableId(OrderByTableQuery query)
     {
         return orderService.getOrderByTable(query);
+    }
+
+    @RequestMapping("/orders")
+    @ResponseBody
+    public AllOrderInfo getAllOrder()
+    {
+        return orderService.getAllOrder();
     }
 }
