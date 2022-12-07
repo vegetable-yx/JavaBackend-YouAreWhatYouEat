@@ -4,6 +4,14 @@ server:
 spring:
   application:
     name: order # ???????
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@106.14.212.200:1521:XE
+    hikari:
+      username: yang
+      password: yx123
+  jpa:
+    database: oracle
 
 eureka:
   client:
