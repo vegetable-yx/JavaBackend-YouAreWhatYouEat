@@ -1,9 +1,6 @@
 package com.example.order.service.impl;
 
-import com.example.order.dto.AllOrderInfo;
-import com.example.order.dto.OrderByTableQuery;
-import com.example.order.dto.OrderInfoDto;
-import com.example.order.dto.OrderSummary;
+import com.example.order.dto.*;
 import com.example.order.entitiy.DishorderlistEntity;
 import com.example.order.entitiy.OrderlistEntity;
 import com.example.order.repository.DishOrderListRepository;
@@ -14,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -131,5 +130,36 @@ public class OrderServiceImpl implements OrderService {
 
         result.setSummary(summary);
         return result;
+    }
+
+    @Override
+    public boolean setOrderStatus(ChangeOrderInfoRequest request)
+    {
+        OrderlistEntity orderlistEntity=new OrderlistEntity();
+        orderlistEntity.setOrderStatus(request.getOrder_status());
+        orderlistEntity.setOrderId(request.getOrder_id());
+        orderlistEntity.setTableId(request.getTable_id());
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            orderlistEntity.setCreationTime((Date) formatter.parse(request.getCreation_time()));
+        }
+        catch (Exception e)
+        {
+            System.out.println("Date parse error");
+            orderlistEntity.setCreationTime(orderListRepository.findByOrderId(request.getOrder_id()).getCreationTime());
+        }
+
+
+        OrderlistEntity tem = orderListRepository.findByOrderId(request.getOrder_id());
+        if (tem==null) return false;
+
+        try {
+            orderListRepository.saveAndFlush(orderlistEntity);
+        } catch (Exception e) {
+            return false;
+        }
+
+        return true;
     }
 }

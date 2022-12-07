@@ -1,11 +1,16 @@
 package com.example.order.controller;
 
 import com.example.order.dto.AllOrderInfo;
+import com.example.order.dto.ChangeOrderInfoRequest;
 import com.example.order.dto.OrderByTableQuery;
 import com.example.order.dto.OrderInfoDto;
 import com.example.order.service.OrderService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -18,17 +23,32 @@ public class OrderController {
         this.orderService=orderService;
     }
 
-    @RequestMapping("/orderByTable")
+    @RequestMapping(value = "/orderByTable",method = RequestMethod.GET)
     @ResponseBody
-    public OrderInfoDto getOrderByTableId(OrderByTableQuery query)
+    public OrderInfoDto getOrderByTableId(@RequestBody OrderByTableQuery query)
     {
         return orderService.getOrderByTable(query);
     }
 
-    @RequestMapping("/orders")
+    @RequestMapping(value = "/orders",method = RequestMethod.GET)
     @ResponseBody
     public AllOrderInfo getAllOrder()
     {
         return orderService.getAllOrder();
+    }
+
+    @RequestMapping(value = "/order", method = RequestMethod.PUT)
+    public ResponseEntity setOrderStatus(@RequestBody ChangeOrderInfoRequest request)
+    {
+        System.out.println(request);
+
+        if(orderService.setOrderStatus(request))
+        {
+            return new ResponseEntity(HttpStatus.OK);
+        }
+        else
+        {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
     }
 }
