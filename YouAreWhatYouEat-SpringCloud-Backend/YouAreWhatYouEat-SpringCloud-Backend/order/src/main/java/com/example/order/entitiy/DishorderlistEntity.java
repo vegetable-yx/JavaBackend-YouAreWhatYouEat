@@ -14,6 +14,8 @@ public class DishorderlistEntity {
     private Double finalPayment;
     private String dishStatus;
     private String remark;
+    private OrderlistEntity orderlistByOrderId;
+    private DishesEntity dishesByDishId;
 
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -87,5 +89,25 @@ public class DishorderlistEntity {
     @Override
     public int hashCode() {
         return Objects.hash(dishOrderId, orderId, dishId, finalPayment, dishStatus, remark);
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ORDER_ID", referencedColumnName = "ORDER_ID", nullable = false,insertable = false,updatable = false)
+    public OrderlistEntity getOrderlistByOrderId() {
+        return orderlistByOrderId;
+    }
+
+    public void setOrderlistByOrderId(OrderlistEntity orderlistByOrderId) {
+        this.orderlistByOrderId = orderlistByOrderId;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "DISH_ID", referencedColumnName = "DISH_ID", nullable = false,insertable = false,updatable = false)
+    public DishesEntity getDishesByDishId() {
+        return dishesByDishId;
+    }
+
+    public void setDishesByDishId(DishesEntity dishesByDishId) {
+        this.dishesByDishId = dishesByDishId;
     }
 }

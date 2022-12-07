@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 
 import java.math.BigInteger;
 import java.sql.Date;
-import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -14,7 +13,6 @@ public class OrderlistEntity {
     private Date creationTime;
     private BigInteger tableId;
     private String orderStatus;
-    private Collection<DishorderlistEntity> dishorderlistsByOrderId;
 
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -68,14 +66,5 @@ public class OrderlistEntity {
     @Override
     public int hashCode() {
         return Objects.hash(orderId, creationTime, tableId, orderStatus);
-    }
-
-    @OneToMany(mappedBy = "orderId")
-    public Collection<DishorderlistEntity> getDishorderlistsByOrderId() {
-        return dishorderlistsByOrderId;
-    }
-
-    public void setDishorderlistsByOrderId(Collection<DishorderlistEntity> dishorderlistsByOrderId) {
-        this.dishorderlistsByOrderId = dishorderlistsByOrderId;
     }
 }

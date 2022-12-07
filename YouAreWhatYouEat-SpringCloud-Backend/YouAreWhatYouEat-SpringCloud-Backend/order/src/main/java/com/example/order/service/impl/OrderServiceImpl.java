@@ -4,6 +4,7 @@ import com.example.order.dto.*;
 import com.example.order.entitiy.DishorderlistEntity;
 import com.example.order.entitiy.OrderlistEntity;
 import com.example.order.repository.DishOrderListRepository;
+import com.example.order.repository.DishRepository;
 import com.example.order.repository.OrderListRepository;
 import com.example.order.service.OrderService;
 import jakarta.annotation.Resource;
@@ -24,6 +25,8 @@ public class OrderServiceImpl implements OrderService {
     private OrderListRepository orderListRepository;
     @Resource
     private DishOrderListRepository dishOrderListRepository;
+    @Resource
+    private DishRepository dishRepository;
 
     @Override
     public OrderInfoDto getOrderByTable(OrderByTableQuery query)
@@ -178,8 +181,8 @@ public class OrderServiceImpl implements OrderService {
             dishInfoDto.setDish_id(dish.getDishId());
             dishInfoDto.setFinal_payment(dish.getFinalPayment());
 
-            //TODO 要从另一个表获取原始价格
-            dishInfoDto.setOriginal_price(dish.getFinalPayment());
+            //dishInfoDto.setOriginal_price(dish.getFinalPayment());
+            dishInfoDto.setOriginal_price(dishRepository.findByDishId(dish.getDishId()).getDishPrice());
             dishInfoDto.setDish_status(dish.getDishStatus());
 
             totalPrice+=dish.getFinalPayment();
