@@ -1,9 +1,6 @@
 package com.example.order.service;
 
-import com.example.order.dto.AllOrderInfo;
-import com.example.order.dto.ChangeOrderInfoRequest;
-import com.example.order.dto.OrderByTableQuery;
-import com.example.order.dto.OrderInfoDto;
+import com.example.order.dto.*;
 
 public interface OrderService {
     OrderInfoDto getOrderByTable(OrderByTableQuery query);
@@ -11,4 +8,6 @@ public interface OrderService {
     AllOrderInfo getAllOrder();
 
     boolean setOrderStatus(ChangeOrderInfoRequest request);
+
+    AllOrderDishInfo getAllDishInOrder(OrderByIdQuery query);
 }

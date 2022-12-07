@@ -1,9 +1,6 @@
 package com.example.order.controller;
 
-import com.example.order.dto.AllOrderInfo;
-import com.example.order.dto.ChangeOrderInfoRequest;
-import com.example.order.dto.OrderByTableQuery;
-import com.example.order.dto.OrderInfoDto;
+import com.example.order.dto.*;
 import com.example.order.service.OrderService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +32,14 @@ public class OrderController {
     public AllOrderInfo getAllOrder()
     {
         return orderService.getAllOrder();
+    }
+
+    @RequestMapping(value = "/orderDish",method = RequestMethod.GET)
+    @ResponseBody
+    public AllOrderDishInfo getAllDishInOrder(@RequestBody OrderByIdQuery query)
+    {
+        System.out.println(query.getOrder_id());
+        return orderService.getAllDishInOrder(query);
     }
 
     @RequestMapping(value = "/order", method = RequestMethod.PUT)

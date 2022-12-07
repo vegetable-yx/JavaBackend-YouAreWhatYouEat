@@ -162,4 +162,32 @@ public class OrderServiceImpl implements OrderService {
 
         return true;
     }
+
+    @Override
+    public AllOrderDishInfo getAllDishInOrder(OrderByIdQuery query)
+    {
+        AllOrderDishInfo result=new AllOrderDishInfo();
+        List<DishorderlistEntity> dishorderlistEntities=dishOrderListRepository.findAllByOrderId(query.getOrder_id());
+
+        Double totalPrice=0d;
+        for (DishorderlistEntity dish:dishorderlistEntities
+             ) {
+            DishInfoDto dishInfoDto=new DishInfoDto();
+            dishInfoDto.setDish_order_id(dish.getDishOrderId());
+            dishInfoDto.setOrder_id(dish.getOrderId());
+            dishInfoDto.setDish_id(dish.getDishId());
+            dishInfoDto.setFinal_payment(dish.getFinalPayment());
+
+            //TODO 要从另一个表获取原始价格
+            dishInfoDto.setOriginal_price(dish.getFinalPayment());
+            dishInfoDto.setDish_status(dish.getDishStatus());
+
+            totalPrice+=dish.getFinalPayment();
+
+            result.addDish(dishInfoDto);
+        }
+        result.getSummary().setTotal_price(totalPrice);
+
+        return result;
+    }
 }
