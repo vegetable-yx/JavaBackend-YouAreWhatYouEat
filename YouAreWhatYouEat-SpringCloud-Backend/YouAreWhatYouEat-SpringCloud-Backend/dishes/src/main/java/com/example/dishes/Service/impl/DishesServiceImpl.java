@@ -101,10 +101,10 @@ public class DishesServiceImpl implements DishesService {
     return result;
     }
 
-    @Transactional
+
     @Override
     public HttpStatus postAddDish(PostDishItem item) {
-        return null;
+        return HttpStatus.OK;
     }
 
 
@@ -131,7 +131,9 @@ public class DishesServiceImpl implements DishesService {
             System.out.println("开删除"+id);
             dishHasTagRepository.deleteByDishId(id);
             dishNeedIngrRepository.deleteByDishId(id);
+            commentRepository.deleteByDishId(id);
             dishesRepository.deleteByDishId(id);
+
             return HttpStatus.OK;
         }
         catch (Exception e){

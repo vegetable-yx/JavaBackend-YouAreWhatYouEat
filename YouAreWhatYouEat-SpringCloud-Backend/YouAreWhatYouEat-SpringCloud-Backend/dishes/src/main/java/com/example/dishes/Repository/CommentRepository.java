@@ -17,7 +17,6 @@ public interface CommentRepository
     Collection<BigInteger> FindStarsById(BigInteger id);
 
     @Transactional
-    @Query("delete from CommentOnDishEntity where dishId=?1")
     void deleteByDishId(BigInteger id);
 
 }
