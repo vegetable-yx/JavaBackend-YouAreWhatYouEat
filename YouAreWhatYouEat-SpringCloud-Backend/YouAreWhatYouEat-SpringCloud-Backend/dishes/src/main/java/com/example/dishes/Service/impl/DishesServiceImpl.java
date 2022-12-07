@@ -118,18 +118,20 @@ public class DishesServiceImpl implements DishesService {
     @Override
     public HttpStatus deleteDish(BigInteger id) {
 
-        System.out.println(123123123);
+
         if(id==null){
             return HttpStatus.BAD_REQUEST;
         }
         Collection<DishesEntity> info=dishesRepository.findFirstByDishId(id);
+
         if(info.isEmpty()){
             return HttpStatus.NO_CONTENT;
         }
         try{
-            dishesRepository.deleteByDishId(id);
+            System.out.println("开删除"+id);
             dishHasTagRepository.deleteByDishId(id);
             dishNeedIngrRepository.deleteByDishId(id);
+            dishesRepository.deleteByDishId(id);
             return HttpStatus.OK;
         }
         catch (Exception e){

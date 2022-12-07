@@ -11,7 +11,9 @@ import java.math.BigInteger;
 public interface DishNeedIngrRepository
         extends JpaRepository<DisheNeedIngrEntity, BigInteger>, JpaSpecificationExecutor<DisheNeedIngrEntity> {
 
+
+
+
     @Transactional
-    @Query("DELETE from DisheNeedIngrEntity where dishId=?1")
     void deleteByDishId(BigInteger id);
 }

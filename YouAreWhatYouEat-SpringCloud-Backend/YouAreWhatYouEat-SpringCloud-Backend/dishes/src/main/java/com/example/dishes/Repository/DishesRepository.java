@@ -20,10 +20,10 @@ public interface DishesRepository
 
     public List<DishesEntity> findAll();
 
-    @Transactional
-    @Query("DELETE FROM DishesEntity where dishId=?1")
-    void deleteByDishId(BigInteger id);
 
+
+    @Transactional
+    void deleteByDishId(BigInteger id);
 
     Collection<DishesEntity> findFirstByDishId(BigInteger id);
 

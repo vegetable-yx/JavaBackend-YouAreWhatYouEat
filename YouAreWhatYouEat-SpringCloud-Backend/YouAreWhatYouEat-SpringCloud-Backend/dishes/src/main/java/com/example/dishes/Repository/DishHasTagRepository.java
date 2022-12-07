@@ -12,7 +12,9 @@ import java.math.BigInteger;
 public interface DishHasTagRepository
         extends JpaRepository<DishHasTagEntity, BigInteger>, JpaSpecificationExecutor<DishHasTagEntity> {
 
+
+
+
     @Transactional
-    @Query("delete from DishHasTagEntity where dishId=?1 ")
     void deleteByDishId(BigInteger id);
 }

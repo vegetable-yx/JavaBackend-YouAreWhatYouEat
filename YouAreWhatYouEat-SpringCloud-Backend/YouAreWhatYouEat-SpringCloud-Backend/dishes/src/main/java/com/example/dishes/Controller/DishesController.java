@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,9 +38,9 @@ public class DishesController {
             return ResponseEntity.ok(ls);
         }
     }
-    @GetMapping("")
+    @DeleteMapping ("")
     public ResponseEntity<Object> deleteDish(@RequestParam String id){
-        System.out.println(123);
+        System.out.println(id);
         return  new ResponseEntity<>(dishesService.deleteDish(new BigInteger(id)));
     }
 
