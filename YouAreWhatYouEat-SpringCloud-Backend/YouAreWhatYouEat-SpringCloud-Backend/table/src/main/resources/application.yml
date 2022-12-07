@@ -4,6 +4,14 @@ server:
 spring:
   application:
     name: table # ???????
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@106.14.212.200:1521:XE
+    hikari:
+      username: yang
+      password: yx123
+  jpa:
+    database: oracle
 
 eureka:
   client:
@@ -11,6 +19,10 @@ eureka:
       defaultZone: http://localhost:18082/eureka/
   instance:
     prefer-ip-address: true
+
+
+
+
 
 
 
