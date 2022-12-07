@@ -110,6 +110,7 @@ public class PromotionServiceImpl implements PromotionService {
         }
     }
 
+    @Transactional
     @Override
     public HttpStatus deletePromotion(BigInteger id) {
         if (!promotionRepository.existsById(id)) {
