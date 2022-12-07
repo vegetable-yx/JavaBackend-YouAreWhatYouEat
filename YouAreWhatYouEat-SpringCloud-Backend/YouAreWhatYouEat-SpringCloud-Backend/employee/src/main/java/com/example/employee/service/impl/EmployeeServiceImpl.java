@@ -5,10 +5,13 @@ import com.example.employee.entity.*;
 import com.example.employee.repository.*;
 import com.example.employee.service.EmployeeService;
 import jakarta.annotation.Resource;
+import org.bouncycastle.util.encoders.Base64Encoder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.modelmapper.ModelMapper;
 
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.math.BigInteger;
 import java.util.*;
 
@@ -16,6 +19,9 @@ import java.util.*;
 public class EmployeeServiceImpl implements EmployeeService {
     @Value("${myConfiguration.url}")
     private String baseUrl;
+
+    @Value("${myConfiguration.path}")
+    private String localPath;
     @Resource
     private EmployeeRepository employeeRepository;
 
@@ -76,7 +82,30 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         try {
             employeeRepository.saveAndFlush(employee);
+
+            // upload pictures
+            Base64.Decoder decoder = Base64.getDecoder();
+            if (employeeDto.getAvatar() != null && !employeeDto.getAvatar().isEmpty()) {
+                // Base64
+                byte[] b = decoder.decode(employeeDto.getAvatar());
+                String imgFilePath = localPath + "employee/employee_" + employeeDto.getId() + ".png";
+                OutputStream out = new FileOutputStream(imgFilePath);
+                out.write(b);
+                out.flush();
+                out.close();
+            }
+
+            if (employeeDto.getCover() != null && !employeeDto.getCover().isEmpty()) {
+                // Base64
+                byte[] b = decoder.decode(employeeDto.getCover());
+                String imgFilePath = localPath + "cover/cover_" + employeeDto.getId() + ".png";
+                OutputStream out = new FileOutputStream(imgFilePath);
+                out.write(b);
+                out.flush();
+                out.close();
+            }
         } catch (Exception e) {
+            System.out.println(e.toString());
             return false;
         }
 
@@ -97,6 +126,28 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         try {
             employeeRepository.saveAndFlush(employee);
+
+            // upload pictures
+            Base64.Decoder decoder = Base64.getDecoder();
+            if (employeeDto.getAvatar() != null && !employeeDto.getAvatar().isEmpty()) {
+                // Base64
+                byte[] b = decoder.decode(employeeDto.getAvatar());
+                String imgFilePath = localPath + "employee/employee_" + employeeDto.getId() + ".png";
+                OutputStream out = new FileOutputStream(imgFilePath);
+                out.write(b);
+                out.flush();
+                out.close();
+            }
+
+            if (employeeDto.getCover() != null && !employeeDto.getCover().isEmpty()) {
+                // Base64
+                byte[] b = decoder.decode(employeeDto.getCover());
+                String imgFilePath = localPath + "cover/cover_" + employeeDto.getId() + ".png";
+                OutputStream out = new FileOutputStream(imgFilePath);
+                out.write(b);
+                out.flush();
+                out.close();
+            }
         } catch (Exception e) {
             return false;
         }

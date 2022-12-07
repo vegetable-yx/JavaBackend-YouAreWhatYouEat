@@ -4,6 +4,7 @@ import com.example.employee.dto.AllEmployeeInfoOutDto;
 import com.example.employee.dto.EmployeeSimpleInfoOutDto;
 import com.example.employee.dto.OneEmployeeInDto;
 import com.example.employee.dto.OneEmployeeOutDto;
+import com.example.employee.service.AuthenClient;
 import com.example.employee.service.EmployeeService;
 import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,10 @@ import java.util.List;
 @RequestMapping("/api/v1")
 @CrossOrigin
 public class EmployeeController {
-
     private EmployeeService employeeService;
+
+    @Autowired
+    private AuthenClient authenClient;
 
     @Autowired
     public EmployeeController(EmployeeService employeeService) {
@@ -33,7 +36,10 @@ public class EmployeeController {
     )
     {
         // check token
-        // ......
+        if (token == null) return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        ResponseEntity<Boolean> check = authenClient.checkToken(token);
+        if (check.getBody() == null || !check.getBody())
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 
         List<AllEmployeeInfoOutDto> result = employeeService.getAllEmployeeInfo();
         if (result.size() == 0) return new ResponseEntity(HttpStatus.NO_CONTENT);
@@ -57,7 +63,11 @@ public class EmployeeController {
     )
     {
         // check token
-        // ......
+        if (token == null) return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        ResponseEntity<Boolean> check = authenClient.checkToken(token);
+        if (check.getBody() == null || !check.getBody())
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
         OneEmployeeOutDto result = employeeService.getOneEmployeeInfo(id);
         if (result == null) {
             return new ResponseEntity(HttpStatus.NO_CONTENT);
@@ -67,7 +77,7 @@ public class EmployeeController {
 
     // add a new employee
     @RequestMapping(value = "employees", method = RequestMethod.POST)
-    public ResponseEntity addEmployee(@ModelAttribute OneEmployeeInDto employeeDto)
+    public ResponseEntity addEmployee(@RequestBody OneEmployeeInDto employeeDto)
     {
         if (employeeService.addEmployee(employeeDto)) {
             return new ResponseEntity(HttpStatus.CREATED);
@@ -78,7 +88,7 @@ public class EmployeeController {
 
     // update a new employee
     @RequestMapping(value = "employees", method = RequestMethod.PUT)
-    public ResponseEntity updateEmployee(@ModelAttribute OneEmployeeInDto employeeDto)
+    public ResponseEntity updateEmployee(@RequestBody OneEmployeeInDto employeeDto)
     {
         if (employeeService.updateEmployee(employeeDto)) {
             return new ResponseEntity(HttpStatus.OK);
@@ -90,9 +100,16 @@ public class EmployeeController {
     // delete a new employee
     @RequestMapping(value = "employees", method = RequestMethod.DELETE)
     public ResponseEntity deleteEmployee(
-            @RequestParam(required = true) String id
+            @RequestParam(required = true) String id,
+            @RequestParam(required = false) String token
     )
     {
+        // check token
+        if (token == null) return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        ResponseEntity<Boolean> check = authenClient.checkToken(token);
+        if (check.getBody() == null || !check.getBody())
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
         if (employeeService.deleteEmployee(id)) {
             return new ResponseEntity(HttpStatus.OK);
         } else {
