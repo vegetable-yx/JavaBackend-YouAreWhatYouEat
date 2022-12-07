@@ -3,12 +3,15 @@ package com.example.dishes.Service.impl;
 import com.example.dishes.Entity.DishHasTagEntity;
 import com.example.dishes.Entity.DisheNeedIngrEntity;
 import com.example.dishes.Entity.DishesEntity;
+import com.example.dishes.Entity.DishorderlistEntity;
 import com.example.dishes.Repository.*;
 import com.example.dishes.Service.DishesService;
 import com.example.dishes.dto.Dish.GetDishItem;
 
 import com.example.dishes.dto.Dish.PostDishItem;
 import com.example.dishes.dto.Dish.PutDishItem;
+import com.example.dishes.dto.List.GetOrderListItem;
+import com.example.dishes.dto.List.OrderDishItem;
 import jakarta.annotation.Resource;
 import jakarta.transaction.Transactional;
 import jdk.swing.interop.SwingInterOpUtils;
@@ -48,6 +51,12 @@ public class DishesServiceImpl implements DishesService {
     @Resource
     private DishNeedIngrRepository dishNeedIngrRepository;
 
+    @Resource
+    private OrderListRepository orderListRepository;
+
+    @Resource
+    private DishOrderListRepository dishOrderListRepository;
+
     @Override
     public List<GetDishItem> getAllDishes() {
 
@@ -56,7 +65,7 @@ public class DishesServiceImpl implements DishesService {
 
     List<GetDishItem> result =new ArrayList<>();
 
-    ModelMapper modelMapper = new ModelMapper();
+
     for(DishesEntity dish:dishesEntities){
         GetDishItem info=new GetDishItem();
         info.setRate("");
@@ -128,7 +137,8 @@ public class DishesServiceImpl implements DishesService {
         try {
             System.out.println("Dish CHENGGONG");
 
-            dishesRepository.save(newDish);
+            dishesRepository.saveAndFlush(newDish);
+
 
         }
         catch (Exception e){
@@ -140,7 +150,7 @@ public class DishesServiceImpl implements DishesService {
             dishHasTagEntity.setDishId(item.getId());
             dishHasTagEntity.setDtagId(id.get(0));
             try {
-                dishHasTagRepository.save(dishHasTagEntity);
+                dishHasTagRepository.saveAndFlush(dishHasTagEntity);
             }
             catch (Exception e){
                 return HttpStatus.BAD_REQUEST;
@@ -152,7 +162,7 @@ public class DishesServiceImpl implements DishesService {
             disheNeedIngrEntity.setDishId(item.getId());
             disheNeedIngrEntity.setIngrId(dishTagsRepository.FindIdByName(tagName).get(0));
             try {
-                dishNeedIngrRepository.save(disheNeedIngrEntity);
+                dishNeedIngrRepository.saveAndFlush(disheNeedIngrEntity);
             }
             catch (Exception e){
                 return HttpStatus.BAD_REQUEST;
@@ -196,4 +206,9 @@ public class DishesServiceImpl implements DishesService {
         }
 
     }
+
+
+
+
+
 }

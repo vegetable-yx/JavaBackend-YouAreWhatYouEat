@@ -22,12 +22,15 @@ public interface DishesRepository
 
 
 
+
     @Transactional
     void deleteByDishId(BigInteger id);
 
     Collection<DishesEntity> findFirstByDishId(BigInteger id);
 
 
+    @Query("SELECT p.dishName FROM DishesEntity p where p.dishId=?1")
+    List<String> findDishNameByDishId(BigInteger id);
 
 
 }

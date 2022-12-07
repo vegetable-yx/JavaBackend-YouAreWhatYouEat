@@ -4,6 +4,7 @@ import com.example.dishes.Entity.DishesEntity;
 import com.example.dishes.dto.Dish.GetDishItem;
 import com.example.dishes.dto.Dish.PostDishItem;
 import com.example.dishes.dto.Dish.PutDishItem;
+import com.example.dishes.dto.List.GetOrderListItem;
 import org.springframework.http.HttpStatus;
 
 import java.math.BigInteger;
@@ -17,4 +18,6 @@ public interface DishesService {
     HttpStatus putUpdateDish(PutDishItem item);
 
     HttpStatus deleteDish(BigInteger id);
+
+
 }

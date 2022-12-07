@@ -20,4 +20,6 @@ public interface DishTagsRepository
 
     @Query("SELECT distinct  p.dtagId from DishtagsEntity p where p.dtagName=?1  ")
     List<BigInteger> FindIdByName(String name);
+
+
 }
