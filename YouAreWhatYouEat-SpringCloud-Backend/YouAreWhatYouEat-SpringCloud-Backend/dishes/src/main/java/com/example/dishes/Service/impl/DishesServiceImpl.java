@@ -104,6 +104,61 @@ public class DishesServiceImpl implements DishesService {
 
     @Override
     public HttpStatus postAddDish(PostDishItem item) {
+
+        System.out.println(item.toString());
+        DishesEntity newDish=new DishesEntity();
+
+        newDish.setDishDescription(item.getDescription());
+
+        newDish.setDishId(item.getId());
+
+        newDish.setDishPrice(item.getPrice());
+
+        newDish.setDishName(item.getDishName());
+
+        newDish.setVideo(item.getVideo());
+
+
+        System.out.println(newDish.getDishPrice());
+        System.out.println(newDish.getDishId());
+        System.out.println(newDish.getDishName());
+        System.out.printf(newDish.getVideo());
+        System.out.println(newDish.getDishDescription());
+        System.out.println(newDish);
+        try {
+            System.out.println("Dish CHENGGONG");
+
+            dishesRepository.save(newDish);
+
+        }
+        catch (Exception e){
+            return HttpStatus.BAD_REQUEST;
+        }
+        for(String ingName:item.getIngs()){
+            DishHasTagEntity dishHasTagEntity=new DishHasTagEntity();
+            List<BigInteger> id=ingredientsRepository.findIdByName(ingName);
+            dishHasTagEntity.setDishId(item.getId());
+            dishHasTagEntity.setDtagId(id.get(0));
+            try {
+                dishHasTagRepository.save(dishHasTagEntity);
+            }
+            catch (Exception e){
+                return HttpStatus.BAD_REQUEST;
+            }
+
+        }
+        for (String tagName:item.getTags()){
+            DisheNeedIngrEntity disheNeedIngrEntity=new DisheNeedIngrEntity();
+            disheNeedIngrEntity.setDishId(item.getId());
+            disheNeedIngrEntity.setIngrId(dishTagsRepository.FindIdByName(tagName).get(0));
+            try {
+                dishNeedIngrRepository.save(disheNeedIngrEntity);
+            }
+            catch (Exception e){
+                return HttpStatus.BAD_REQUEST;
+            }
+        }
+
         return HttpStatus.OK;
     }
 
