@@ -2,3 +2,4 @@
 *.md
 *.iml
 YouAreWhatYouEat-SpringCloud-Backend/YouAreWhatYouEat-SpringCloud-Backend/dishes/src/main/resources/application.properties
+YouAreWhatYouEat-SpringCloud-Backend/YouAreWhatYouEat-SpringCloud-Backend/ingredientRecords/src/main/resources/application.properties
