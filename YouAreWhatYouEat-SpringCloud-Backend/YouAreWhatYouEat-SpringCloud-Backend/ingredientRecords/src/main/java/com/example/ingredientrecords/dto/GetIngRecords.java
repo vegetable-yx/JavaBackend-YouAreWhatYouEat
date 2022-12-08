@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import oracle.sql.DATE;
 
 import java.math.BigInteger;
+import java.sql.Date;
 
 @Data
 @AllArgsConstructor
@@ -17,11 +18,11 @@ public class GetIngRecords {
 
     String ingName;
 
-    DATE date;
+    Date date;
 
-    BigInteger amount;
+    Integer amount;
 
-    BigInteger surplus;
+    Integer surplus;
 
 
 
