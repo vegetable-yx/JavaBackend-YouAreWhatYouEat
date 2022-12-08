@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PatchUpdateDishStatus {
 
-    @JsonProperty("dishOrderId")
+    @JsonProperty("dish_order_id")
     String dishOrderId;
-    @JsonProperty("dishStatus")
+    @JsonProperty("dish_status")
     String dishStatus;
 
 }

@@ -15,7 +15,7 @@ public class PutDishItem {
 
     @JsonProperty("id")
     BigInteger id;
-    @JsonProperty("dishName")
+    @JsonProperty("dish_name")
     String dishName;
     @JsonProperty("price")
     int price;
@@ -23,6 +23,6 @@ public class PutDishItem {
     String description;
     @JsonProperty("tags")
     List<String> tags;
-    @JsonProperty("ings")
+    @JsonProperty("ingredient")
     List<String> ings;
 }

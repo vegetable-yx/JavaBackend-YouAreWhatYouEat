@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 
 public class PatchUpdateOrderStatus {
 
-    @JsonProperty("orderId")
+    @JsonProperty("order_id")
     String orderId;
-    @JsonProperty("orderStatus")
+    @JsonProperty("order_status")
     String orderStatus;
 }
