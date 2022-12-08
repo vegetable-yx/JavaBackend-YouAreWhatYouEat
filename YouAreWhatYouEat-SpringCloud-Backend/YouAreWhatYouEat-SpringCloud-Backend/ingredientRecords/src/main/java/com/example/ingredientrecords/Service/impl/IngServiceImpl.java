@@ -49,11 +49,11 @@ public class IngServiceImpl implements IngRecordsService {
             getIngRecordsList.add(item);
         }
 
-            return getIngRecordsList;
+        return getIngRecordsList;
 
 
 
-        return null;
+
 
     }
 }
