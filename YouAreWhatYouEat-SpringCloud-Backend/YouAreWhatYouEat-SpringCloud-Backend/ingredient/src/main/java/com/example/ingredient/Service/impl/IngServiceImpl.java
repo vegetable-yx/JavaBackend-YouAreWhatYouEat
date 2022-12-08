@@ -67,7 +67,7 @@ public class IngServiceImpl implements IngService {
 
 
         }
-        
+
         return result;
     }
 }
