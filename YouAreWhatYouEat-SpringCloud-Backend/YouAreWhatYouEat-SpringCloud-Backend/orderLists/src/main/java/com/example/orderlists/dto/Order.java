@@ -1,21 +1,22 @@
 package com.example.orderlists.dto;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Dictionary;
-import java.util.List;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetOrders {
+public class Order {
+    String orderId;
 
-    int errorCode;
+    String creationTime;
 
-    List<Order> orders;
+    String tableId;
 
-    List<Dictionary> summary;
+    String orderStatus;
+
+    int finalPay;
+
+    int discountPrice;
 }
