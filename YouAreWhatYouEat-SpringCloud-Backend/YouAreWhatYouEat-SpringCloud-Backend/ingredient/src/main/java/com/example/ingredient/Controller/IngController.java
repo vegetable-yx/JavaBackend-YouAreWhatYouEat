@@ -3,16 +3,15 @@ package com.example.ingredient.Controller;
 import com.example.ingredient.Service.impl.IngServiceImpl;
 import com.example.ingredient.dto.GetIng;
 import com.example.ingredient.dto.GetIngRecord;
+import com.example.ingredient.dto.PostIng;
+import com.example.ingredient.dto.PostIngRrd;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -69,6 +68,30 @@ public class IngController {
     public ResponseEntity<Object> deleteIngRecord(@RequestParam String id){
         System.out.println(id);
         return  new ResponseEntity<>(ingService.deleteIngRecord(new BigInteger(id)));
+    }
+
+    @PostMapping("")
+    public ResponseEntity<Object> postAddIng(@RequestBody PostIng p) {
+        System.out.println(p);
+        return new ResponseEntity<>(ingService.addIng(p));
+    }
+
+    @PutMapping ("")
+    public ResponseEntity<Object> putUpdateIng(@RequestBody PostIng p) {
+        System.out.println(p);
+        return new ResponseEntity<>(ingService.updateIng(p));
+    }
+
+    @PostMapping("/record")
+    public ResponseEntity<Object> postAddIngRecord(@RequestBody PostIngRrd p) {
+        System.out.println(p);
+        return new ResponseEntity<>(ingService.addIngRecord(p));
+    }
+
+    @PutMapping ("/record")
+    public ResponseEntity<Object> putUpdateIngRrd(@RequestBody PostIngRrd p) {
+        System.out.println(p);
+        return new ResponseEntity<>(ingService.updateIngRecord(p));
     }
 
 }
