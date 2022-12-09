@@ -9,4 +9,5 @@ import java.math.BigInteger;
 
 public interface IngRecordRepository
         extends JpaRepository<IngredientRecordEntity, BigInteger>, JpaSpecificationExecutor<IngredientRecordEntity> {
+    public IngredientRecordEntity findFirstByRecordId(BigInteger id);
 }

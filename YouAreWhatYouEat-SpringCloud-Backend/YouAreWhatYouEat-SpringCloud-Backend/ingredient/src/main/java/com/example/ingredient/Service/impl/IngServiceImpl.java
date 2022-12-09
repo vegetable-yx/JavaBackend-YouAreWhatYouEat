@@ -12,9 +12,14 @@ import com.example.ingredient.dto.GetIngRecord;
 import com.example.ingredient.dto.GetIngRecordItem;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.swing.*;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -114,4 +119,43 @@ public class IngServiceImpl implements IngService {
         result.setData(data);
         return result;
     }
+
+    @Override
+    public HttpStatus deleteIng(BigInteger id) {
+        IngredientsEntity info=ingRepository.findFirstByIngrId(id);
+        if(info==null){
+            return HttpStatus.NO_CONTENT;
+        }
+        try{
+            System.out.println("开删除"+id);
+            ingRepository.deleteById(id);
+
+            return HttpStatus.OK;
+        }
+        catch (Exception e){
+            return HttpStatus.BAD_REQUEST;
+        }
+
+
+    }
+
+    @Override
+    public HttpStatus deleteIngRecord(BigInteger id) {
+
+        IngredientRecordEntity info=ingRecordRepository.findFirstByRecordId(id);
+        if(info==null){
+            return HttpStatus.NO_CONTENT;
+        }
+        try{
+            System.out.println("开删除"+id);
+            ingRecordRepository.deleteById(id);
+
+            return HttpStatus.OK;
+        }
+        catch (Exception e){
+            return HttpStatus.BAD_REQUEST;
+        }
+    }
+
+
 }
