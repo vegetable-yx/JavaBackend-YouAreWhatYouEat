@@ -2,6 +2,7 @@ package com.example.ingredient.Controller;
 
 import com.example.ingredient.Service.impl.IngServiceImpl;
 import com.example.ingredient.dto.GetIng;
+import com.example.ingredient.dto.GetIngRecord;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import java.util.Optional;
 @RequestMapping(value = "/api/v1/ingredient")
 public class IngController {
     private final IngServiceImpl ingService;
+
 
     @Autowired
     public IngController(IngServiceImpl ingService) {
@@ -40,10 +42,19 @@ public class IngController {
         else{
             return ResponseEntity.ok(ls);
         }
+    }
 
-
-
-
+    @GetMapping("/record")
+    public ResponseEntity<Object> getAllIngredientRecord(){
+        GetIngRecord ls= ingService.getIngRecord();
+        System.out.println(1111);
+        System.out.println(ls);
+        if(ls==null){
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+        }
+        else{
+            return ResponseEntity.ok(ls);
+        }
     }
 
 }
