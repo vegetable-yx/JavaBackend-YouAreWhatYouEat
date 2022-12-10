@@ -5,6 +5,7 @@ import com.example.dishes.Repository.*;
 import com.example.dishes.Service.DishesService;
 import com.example.dishes.dto.Dish.GetDishItem;
 
+import com.example.dishes.dto.Dish.GetDishItem2;
 import com.example.dishes.dto.Dish.PostDishItem;
 import com.example.dishes.dto.Dish.PutDishItem;
 import com.example.dishes.dto.List.GetOrderListItem;
@@ -65,6 +66,9 @@ public class DishesServiceImpl implements DishesService {
 
     List<DishesEntity> dishesEntities=dishesRepository.findAll();
 
+    if(dishesEntities.size()==0){
+        return  null;
+    }
 
     List<GetDishItem> result =new ArrayList<>();
 
@@ -110,9 +114,48 @@ public class DishesServiceImpl implements DishesService {
 
         result.add(info);
     }
-
-
     return result;
+    }
+
+    @Override
+    public List<GetDishItem2> getAllDishes2() {
+        List<GetDishItem2> result=new ArrayList<>();
+
+        GetDishItem2 item=new GetDishItem2();
+
+        List<DishesEntity> dishesEntities=dishesRepository.findAll();
+        if(dishesEntities.size()==0){
+            return  null;
+        }
+
+        for(DishesEntity d:dishesEntities){
+
+            List<DishHasTagEntity> tagLs=new ArrayList<DishHasTagEntity>(d.getTags());
+            List<String> tags=new ArrayList<>();
+            //tag
+            for(DishHasTagEntity dishHasTagEntity:tagLs){
+                Collection<String> tagNames=dishTagsRepository.FindDtagNameById(dishHasTagEntity.getDtagId());
+
+                tags.addAll(tagNames);
+            }
+            item.setTags(tags);
+            item.setPrice(BigInteger.valueOf(d.getDishPrice()));
+            item.setId(d.getDishId());
+            item.setDis_name(d.getDishName());
+            item.setDescription(d.getDishDescription());
+
+            result.add(item);
+        }
+
+
+
+        return result;
+    }
+
+    @Override
+    public String getDishName(String id) {
+
+        return dishesRepository.findDishNameByDishId(new BigInteger(id)).get(0);
     }
 
     @Transactional

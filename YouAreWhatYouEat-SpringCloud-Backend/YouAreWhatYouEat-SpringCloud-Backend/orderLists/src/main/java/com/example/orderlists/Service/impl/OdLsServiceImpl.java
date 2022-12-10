@@ -39,6 +39,11 @@ public class OdLsServiceImpl implements OrderListService {
     @Resource
     DishTagsRepository dishTagsRepository;
 
+    @Resource
+    VipRepository vipRepository;
+
+    @Resource
+    OrderNumberRepo orderNumberRepo;
     @Override
     public GetOrders getOders(String start, String end) {
         Timestamp start_time ,end_time;
@@ -165,6 +170,130 @@ public class OdLsServiceImpl implements OrderListService {
         return result;
     }
 
+
+    @Override
+    public GetVipOrders  getVipOders(String start, String end) {
+
+        Timestamp start_time ,end_time;
+
+        start_time=new Timestamp(Long.MIN_VALUE);
+        end_time=new Timestamp(Long.MAX_VALUE);
+        System.out.println(start_time);
+
+        if (start!=null){
+            start_time=Timestamp.valueOf(start);
+        }
+        if(end!=null)
+        {
+            end_time=Timestamp.valueOf(end);
+        }
+
+        List<VipEntity> vipEntities=vipRepository.findAll();
+        if(vipEntities.size()==0)
+        {
+            return null;
+        }
+
+        List<OrderlistEntity> ods=odLsRepository.findAll();
+
+
+
+
+        int vip_number=0;
+        int vip_order_number=0;
+        int vip_total_credit=0;
+
+
+
+
+       List<VipData> data=new ArrayList<>();
+
+        for(VipEntity vip:vipEntities){
+            if(vip.getIsDefault()!="是"){
+                VipData vipData=new VipData();
+                vipData.setAvatar("");
+                vipData.setGender(vip.getGender());
+                vipData.setUser_name(vip.getUserName());
+
+
+
+                List<OrderNumberEntity> orderNumberEntities=orderNumberRepo.findAllByUserName(vip.getUserName());
+                if(orderNumberEntities.size()==0){
+                    continue;
+                }
+
+                //表示这个VIP 有订单 所以把总的VIP数量加一下
+                vip_number++;
+
+
+                //得到一下该会员的所有订单
+                List<OrderlistEntity> orderlistEntities=new ArrayList<>();
+                for(OrderNumberEntity o:orderNumberEntities){
+                    OrderlistEntity orderlistEntity=odLsRepository.findFirstByOrderId(o.getOrderId());
+                    //通过时间筛一下
+                    if(orderlistEntity.getCreationTime().compareTo(start_time)>=0
+                            &&
+                            orderlistEntity.getCreationTime().compareTo(end_time)<=0){
+                        orderlistEntities.add(orderlistEntity);
+                    }
+                }
+                //该会员一共有这么多订单
+                vipData.setOrder_number(orderlistEntities.size());
+                //总的VIP订单加一下
+                vip_order_number+=orderlistEntities.size();
+
+                //这个变量表示该会员 所有的订单
+                List<VipOrder> vipOrders=new ArrayList<>();
+
+                int total_credit=0;
+
+                //遍历该会员 所有的订单，每一个订单对应一个VIP ORDER
+                for(OrderlistEntity orderlistEntity:orderlistEntities){
+                    int final_payment=0;
+                    // 下面是遍历这个订单里面所有的点菜，得到这一个订单里 所有的钱
+                    for(DishorderlistEntity d:orderlistEntity.getDishorderlistEntities()){
+                        final_payment+=d.getFinalPayment();
+                    }
+
+                    VipOrder vipOrder=new VipOrder();
+                    vipOrder.setOrder_id(orderlistEntity.getOrderId());
+                    vipOrder.setCreation_time(orderlistEntity.getCreationTime().toString());
+                    vipOrder.setOrder_status(orderlistEntity.getOrderStatus());
+                    vipOrder.setTable_id(orderlistEntity.getTableId());
+                    vipOrder.setFinal_payment( BigInteger.valueOf(final_payment));
+
+
+                    vipOrders.add(vipOrder);
+
+                    total_credit+=final_payment;
+
+
+
+                }
+                vipData.setTotal_credit(total_credit);
+                vipData.setOrders(vipOrders);
+                //把这个会员花的钱全部加进来
+                vip_total_credit+=total_credit;
+
+                data.add(vipData);
+
+            }
+        }
+
+        VipSummary vipSummary=new VipSummary();
+        vipSummary.setVip_number(vip_number);
+        vipSummary.setVip_order_number(vip_order_number);
+        vipSummary.setVip_total_credit(vip_total_credit);
+
+        GetVipOrders getVipOrders=new GetVipOrders();
+        getVipOrders.setCode(200);
+        getVipOrders.setSummary(vipSummary);
+        getVipOrders.setData(data);
+
+
+
+        return getVipOrders;
+    }
 
     @Override
     public GetDishes getDishes(String start, String end) {

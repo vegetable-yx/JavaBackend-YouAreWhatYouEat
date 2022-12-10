@@ -2,6 +2,7 @@ package com.example.dishes.Controller;
 
 import com.example.dishes.Service.DishesService;
 import com.example.dishes.dto.Dish.GetDishItem;
+import com.example.dishes.dto.Dish.GetDishItem2;
 import com.example.dishes.dto.Dish.PostDishItem;
 import com.example.dishes.dto.Dish.PutDishItem;
 import jakarta.annotation.Resource;
@@ -38,6 +39,29 @@ public class DishesController {
             return ResponseEntity.ok(ls);
         }
     }
+
+    @GetMapping("")
+    public ResponseEntity<Object> getAllDishes2(){
+        List<GetDishItem2> ls=dishesService.getAllDishes2();
+        if(ls==null){
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+        }
+        else{
+            return ResponseEntity.ok(ls);
+        }
+    }
+
+    @GetMapping("/name")
+    public ResponseEntity<Object> getAllDishesNameById(@RequestParam String dish_id){
+        String ls=dishesService.getDishName(dish_id);
+        if(ls==null){
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+        }
+        else{
+            return ResponseEntity.ok(ls);
+        }
+    }
+
     @DeleteMapping ("")
     public ResponseEntity<Object> deleteDish(@RequestParam String id){
         System.out.println(id);
