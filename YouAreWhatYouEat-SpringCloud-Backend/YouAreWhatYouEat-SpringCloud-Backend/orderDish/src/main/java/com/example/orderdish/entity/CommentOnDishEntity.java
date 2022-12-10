@@ -13,7 +13,7 @@ public class CommentOnDishEntity {
     private String userName;
     private BigInteger dishId;
     private Timestamp commentTime;
-    private BigInteger stars;
+    private Double stars;
     private String commentContent;
     private VipEntity vipByUserName;
     private DishesEntity dishesByDishId;
@@ -61,11 +61,11 @@ public class CommentOnDishEntity {
 
     @Basic
     @Column(name = "STARS", nullable = true, precision = 0)
-    public BigInteger getStars() {
+    public Double getStars() {
         return stars;
     }
 
-    public void setStars(BigInteger stars) {
+    public void setStars(Double stars) {
         this.stars = stars;
     }
 

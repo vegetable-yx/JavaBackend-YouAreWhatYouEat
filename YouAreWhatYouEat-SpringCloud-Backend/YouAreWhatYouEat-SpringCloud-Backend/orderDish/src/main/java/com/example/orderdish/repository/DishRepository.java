@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import java.math.BigInteger;
 import java.util.List;
 
-public interface DishRepository extends JpaRepository<DishesEntity, String>, JpaSpecificationExecutor<DishesEntity> {
+public interface DishRepository extends JpaRepository<DishesEntity, BigInteger>, JpaSpecificationExecutor<DishesEntity> {
     DishesEntity findByDishId(BigInteger dishId);
 }

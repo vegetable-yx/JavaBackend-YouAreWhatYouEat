@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface DishOrderListRepository extends JpaRepository<DishorderlistEntity, String>,JpaSpecificationExecutor<DishorderlistEntity>{
     List<DishorderlistEntity> findAllByOrderId(String orderId);
+    DishorderlistEntity findByDishOrderId(String dishOrderId);
 }

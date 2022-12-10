@@ -12,7 +12,7 @@ public class CommentOnServiceEntity {
     private String commentId;
     private String userName;
     private Timestamp commentTime;
-    private BigInteger stars;
+    private Double stars;
     private String commentContent;
     private VipEntity vipByUserName;
 
@@ -49,11 +49,11 @@ public class CommentOnServiceEntity {
 
     @Basic
     @Column(name = "STARS", nullable = true, precision = 0)
-    public BigInteger getStars() {
+    public Double getStars() {
         return stars;
     }
 
-    public void setStars(BigInteger stars) {
+    public void setStars(Double stars) {
         this.stars = stars;
     }
 

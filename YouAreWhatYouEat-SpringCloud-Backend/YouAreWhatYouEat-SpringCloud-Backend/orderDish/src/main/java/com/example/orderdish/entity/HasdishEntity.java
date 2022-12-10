@@ -11,7 +11,7 @@ import java.util.Objects;
 public class HasdishEntity {
     private BigInteger promotionId;
     private BigInteger dishId;
-    private Integer discount;
+    private Double discount;
     private DishesEntity dishesByDishId;
 
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,11 +38,11 @@ public class HasdishEntity {
 
     @Basic
     @Column(name = "DISCOUNT", nullable = true, precision = 2)
-    public Integer getDiscount() {
+    public Double getDiscount() {
         return discount;
     }
 
-    public void setDiscount(Integer discount) {
+    public void setDiscount(Double discount) {
         this.discount = discount;
     }
 
