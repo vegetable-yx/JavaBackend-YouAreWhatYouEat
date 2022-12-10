@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class OrderDishItem {
 
-    String dishName;
-    String dishStatus;
-    String dishOrderId;
+    String dish_name;
+    String status;
+    String dish_order_id;
     String remark;
 }

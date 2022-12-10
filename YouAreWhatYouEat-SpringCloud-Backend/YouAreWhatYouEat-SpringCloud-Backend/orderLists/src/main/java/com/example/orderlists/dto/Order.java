@@ -10,10 +10,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Order {
     @JsonProperty("order_id")
-    String orderId;
+    String order_id;
 
     @JsonProperty("creation_time")
-    String creationTime;
+    String creation_time;
 
     @JsonProperty("table_id")
     String tableId;

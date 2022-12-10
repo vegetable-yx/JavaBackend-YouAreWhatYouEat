@@ -12,10 +12,10 @@ import java.util.List;
 @NoArgsConstructor
 public class DishNum {
     String name;
-    BigInteger id;
+    BigInteger dish_id;
     List<String> tags;
     BigInteger price;
-    int times;
-    BigInteger totalPay;
+    int order_times;
+    BigInteger total_credit;
 
 }

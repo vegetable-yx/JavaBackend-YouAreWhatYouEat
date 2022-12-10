@@ -86,9 +86,9 @@ public class OdLsServiceImpl implements OrderListService {
         for (OrderlistEntity item:orderlistEntities){
 
             Order order=new Order();
-            order.setOrderId(item.getOrderId());
+            order.setOrder_id(item.getOrderId());
             order.setOrderStatus(item.getOrderStatus());
-            order.setCreationTime(item.getCreationTime().toString());
+            order.setCreation_time(item.getCreationTime().toString());
             order.setTableId(item.getTableId().toString());
 
             int finalPay=0;
@@ -256,7 +256,7 @@ public class OdLsServiceImpl implements OrderListService {
             }
             dishNum.setTags(tags);
             dishNum.setPrice(BigInteger.valueOf(dishesRepository.findFirstByDishId(item.getDishId()).getDishPrice()));
-            dishNum.setId(item.getDishId());
+            dishNum.setDish_id(item.getDishId());
             dishNum.setName(dishesRepository.findFirstByDishId(item.getDishId()).getDishName());
 
             int num=0,totalPay=0;
@@ -266,8 +266,8 @@ public class OdLsServiceImpl implements OrderListService {
                     totalPay+=count.getFinalPayment();
                 }
             }
-            dishNum.setTimes(num);
-            dishNum.setTotalPay(BigInteger.valueOf(totalPay));
+            dishNum.setOrder_times(num);
+            dishNum.setTotal_credit(BigInteger.valueOf(totalPay));
             data.add(dishNum);
         }
         getDishNums.setCode(200);

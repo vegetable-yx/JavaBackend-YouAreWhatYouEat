@@ -12,9 +12,9 @@ import java.util.List;
 @NoArgsConstructor
 public class GetOrderListItem {
 
-    String orderId;
+    String order_id;
 
-    String orderStatus;
+    String order_status;
 
-    List<OrderDishItem> dishes ;
+    List<OrderDishItem> dish ;
 }

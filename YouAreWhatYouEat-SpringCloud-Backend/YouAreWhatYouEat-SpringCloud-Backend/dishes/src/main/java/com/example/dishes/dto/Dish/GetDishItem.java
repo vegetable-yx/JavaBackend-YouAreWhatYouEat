@@ -16,7 +16,7 @@ public class GetDishItem {
     @JsonProperty("id")
     BigInteger id;
     @JsonProperty("name")
-    String dishName;
+    String name;
     @JsonProperty("price")
     int price;
     @JsonProperty("description")
@@ -29,8 +29,8 @@ public class GetDishItem {
     String rate;
     @JsonProperty("tags")
     List<String> tags;
-    @JsonProperty("dish_ings")
-    List<String> ings;
+    @JsonProperty("ingredient")
+    List<String> ingredient;
 
 
 }

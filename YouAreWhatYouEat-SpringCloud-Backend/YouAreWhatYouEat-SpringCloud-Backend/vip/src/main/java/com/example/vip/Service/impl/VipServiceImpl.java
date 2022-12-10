@@ -36,7 +36,7 @@ public class VipServiceImpl implements VipService {
         result.setBalance(vipEntity.getBalance());
         result.setGender(vipEntity.getGender());
         result.setCredit(vipEntity.getCredit());
-        result.setUserName(name);
+        result.setUser_name(name);
 
         return result;
     }
@@ -78,7 +78,7 @@ public class VipServiceImpl implements VipService {
              vipInfo2.setCredit(v.getCredit());
              vipInfo2.setGender(v.getGender());
              vipInfo2.setStatus("正常");
-             vipInfo2.setUserName(v.getUserName());
+             vipInfo2.setUser_name(v.getUserName());
              info.add(vipInfo2);
 
           integersLs1.add(v.getCredit());

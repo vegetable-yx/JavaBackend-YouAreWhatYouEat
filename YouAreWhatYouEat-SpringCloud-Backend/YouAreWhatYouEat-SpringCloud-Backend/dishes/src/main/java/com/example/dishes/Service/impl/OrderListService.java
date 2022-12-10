@@ -49,7 +49,7 @@ public class OrderListService implements com.example.dishes.Service.OrderListSer
     private int orderAlreadyAdd(List<GetOrderListItem> result,DishorderlistEntity item){
 
         for(GetOrderListItem x:result){
-            if(x.getOrderId()==item.getOrderId()){
+            if(x.getOrder_id()==item.getOrderId()){
                 return result.indexOf(x);
 
             }
@@ -68,22 +68,22 @@ public class OrderListService implements com.example.dishes.Service.OrderListSer
             //该id已经添加过，只需要添加菜即可
             if(orderAlreadyAdd(result,dishOrder)!=-1){
                 OrderDishItem orderDishItem=new OrderDishItem();
-                orderDishItem.setDishOrderId(dishOrder.getDishOrderId());
+                orderDishItem.setDish_order_id(dishOrder.getDishOrderId());
                 orderDishItem.setRemark(dishOrder.getRemark());
-                orderDishItem.setDishStatus(dishOrder.getDishStatus());
-                orderDishItem.setDishName(dishesRepository.findDishNameByDishId(dishOrder.getDishId()).get(0));
+                orderDishItem.setStatus(dishOrder.getDishStatus());
+                orderDishItem.setDish_name(dishesRepository.findDishNameByDishId(dishOrder.getDishId()).get(0));
                 GetOrderListItem item=new GetOrderListItem();
 
-                List<OrderDishItem> x=result.get(orderAlreadyAdd(result,dishOrder)).getDishes();
+                List<OrderDishItem> x=result.get(orderAlreadyAdd(result,dishOrder)).getDish();
 
                 if(x!=null)
                 {
                     x.add(orderDishItem);
-                    item.setDishes(x);
+                    item.setDish(x);
                 }
 
-                item.setOrderId(result.get(orderAlreadyAdd(result,dishOrder)).getOrderId());
-                item.setOrderStatus(result.get(orderAlreadyAdd(result,dishOrder)).getOrderStatus());
+                item.setOrder_id(result.get(orderAlreadyAdd(result,dishOrder)).getOrder_id());
+                item.setOrder_status(result.get(orderAlreadyAdd(result,dishOrder)).getOrder_status());
 
                 //把新的填进去
                 result.set(orderAlreadyAdd(result,dishOrder),item);
@@ -91,19 +91,19 @@ public class OrderListService implements com.example.dishes.Service.OrderListSer
             }
             else{
                 GetOrderListItem item=new GetOrderListItem();
-                item.setOrderId(dishOrder.getOrderId());
-                item.setOrderStatus(orderListRepository.findOrderStatusById(dishOrder.getOrderId()).get(0));
+                item.setOrder_id(dishOrder.getOrderId());
+                item.setOrder_status(orderListRepository.findOrderStatusById(dishOrder.getOrderId()).get(0));
                 OrderDishItem orderDishItem=new OrderDishItem();
-                orderDishItem.setDishOrderId(dishOrder.getDishOrderId());
+                orderDishItem.setDish_order_id(dishOrder.getDishOrderId());
                 orderDishItem.setRemark(dishOrder.getRemark());
-                orderDishItem.setDishStatus(dishOrder.getDishStatus());
-                orderDishItem.setDishName(dishesRepository.findDishNameByDishId(dishOrder.getDishId()).get(0));
+                orderDishItem.setStatus(dishOrder.getDishStatus());
+                orderDishItem.setDish_name(dishesRepository.findDishNameByDishId(dishOrder.getDishId()).get(0));
                 List<OrderDishItem> x=new ArrayList<>();
 
                 if(x!=null)
                 {
                     x.add(orderDishItem);
-                    item.setDishes(x);
+                    item.setDish(x);
                 }
 
                 result.add(item);

@@ -16,21 +16,21 @@ import java.sql.Date;
 public class GetIngRecordItem {
 
 
-    BigInteger recordId;
-    BigInteger ingrId;
+    BigInteger record_id;
+    BigInteger ingr_id;
 
-    String ingName;
+    String ingr_name;
 
-    Date purchasingDate;
+    Date purchasing_date;
     Integer surplus;
     Integer purchases;
-    String measureUnit;
-    BigInteger shelfLife;
-    Date producedDate;
+    String measure_unit;
+    BigInteger shelf_life;
+    Date produced_date;
     Integer price;
-    BigInteger directorId;
+    BigInteger director_id;
 
-    String directorName;
+    String director_name;
 
 
 

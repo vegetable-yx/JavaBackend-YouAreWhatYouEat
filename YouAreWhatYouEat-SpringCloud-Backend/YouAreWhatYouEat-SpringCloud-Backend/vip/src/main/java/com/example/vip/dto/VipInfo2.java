@@ -11,7 +11,7 @@ import java.math.BigInteger;
 @NoArgsConstructor
 public class VipInfo2 {
 
-    String userName;
+    String user_name;
 
     String birthday;
 

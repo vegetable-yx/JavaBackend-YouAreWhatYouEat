@@ -72,7 +72,7 @@ public class DishesServiceImpl implements DishesService {
     for(DishesEntity dish:dishesEntities){
         GetDishItem info=new GetDishItem();
         info.setRate("");
-        info.setDishName(dish.getDishName());
+        info.setName(dish.getDishName());
         info.setId(dish.getDishId());
         info.setVideo(dish.getVideo());
         info.setDescription(dish.getDishDescription());
@@ -95,7 +95,7 @@ public class DishesServiceImpl implements DishesService {
 
             ings.addAll(ingNames);
         }
-        info.setIngs(ings);
+        info.setIngredient(ings);
 
         //star
         Collection<BigInteger> stars=commentRepository.FindStarsById(dish.getDishId());

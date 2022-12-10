@@ -14,9 +14,9 @@ import java.sql.Date;
 @NoArgsConstructor
 public class GetIngRecords {
 
-    BigInteger recordId;
+    BigInteger record_id;
 
-    String ingName;
+    String ing_name;
 
     Date date;
 

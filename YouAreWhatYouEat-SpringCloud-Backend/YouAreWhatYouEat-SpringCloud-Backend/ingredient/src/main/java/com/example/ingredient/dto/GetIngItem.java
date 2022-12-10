@@ -13,12 +13,12 @@ import java.math.BigInteger;
 @NoArgsConstructor
 public class GetIngItem {
 
-    BigInteger ingId;
+    BigInteger ingrId;
 
-    String ingName;
+    String ingrName;
 
-    String ingType;
+    String ingrType;
 
-    String ingDescription;
+    String ingrDescription;
 
 }

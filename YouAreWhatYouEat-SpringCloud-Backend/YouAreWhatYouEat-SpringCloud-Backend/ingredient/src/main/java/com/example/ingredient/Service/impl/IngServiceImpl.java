@@ -48,10 +48,10 @@ public class IngServiceImpl implements IngService {
         result.setTotal(1);
 
         GetIngItem item=new GetIngItem();
-        item.setIngDescription(ingredientsEntity.getIngrDescription());
-        item.setIngId(ingredientsEntity.getIngrId());
-        item.setIngType(ingredientsEntity.getIngrType());
-        item.setIngName(ingredientsEntity.getIngrName());
+        item.setIngrDescription(ingredientsEntity.getIngrDescription());
+        item.setIngrId(ingredientsEntity.getIngrId());
+        item.setIngrType(ingredientsEntity.getIngrType());
+        item.setIngrName(ingredientsEntity.getIngrName());
 
         List<GetIngItem> getIngItems=new ArrayList<>();
         getIngItems.add(item);
@@ -73,10 +73,10 @@ public class IngServiceImpl implements IngService {
         for(IngredientsEntity ingredientsEntity:ls){
 
             GetIngItem item=new GetIngItem();
-            item.setIngDescription(ingredientsEntity.getIngrDescription());
-            item.setIngId(ingredientsEntity.getIngrId());
-            item.setIngType(ingredientsEntity.getIngrType());
-            item.setIngName(ingredientsEntity.getIngrName());
+            item.setIngrDescription(ingredientsEntity.getIngrDescription());
+            item.setIngrId(ingredientsEntity.getIngrId());
+            item.setIngrType(ingredientsEntity.getIngrType());
+            item.setIngrName(ingredientsEntity.getIngrName());
 
             getIngItems.add(item);
             result.setData(getIngItems);
@@ -99,18 +99,18 @@ public class IngServiceImpl implements IngService {
         for(IngredientRecordEntity x:ls){
             GetIngRecordItem item=new GetIngRecordItem();
 
-            item.setRecordId(x.getRecordId());
-            item.setIngName(ingRepository.findFirstByIngrId(x.getIngrId()).getIngrName());
-            item.setIngrId(x.getIngrId());
+            item.setRecord_id(x.getRecordId());
+            item.setIngr_name(ingRepository.findFirstByIngrId(x.getIngrId()).getIngrName());
+            item.setIngr_id(x.getIngrId());
             item.setPrice(x.getPrice());
-            item.setDirectorId(x.getDirectorId());
-            item.setDirectorName(supplierRepository.findFirstByDirectorId(x.getDirectorId()).getsName());
-            item.setMeasureUnit(x.getMeasureUnit());
-            item.setProducedDate(x.getProducedDate());
+            item.setDirector_id(x.getDirectorId());
+            item.setDirector_name(supplierRepository.findFirstByDirectorId(x.getDirectorId()).getsName());
+            item.setMeasure_unit(x.getMeasureUnit());
+            item.setProduced_date(x.getProducedDate());
             item.setPurchases(x.getPurchases());
-            item.setShelfLife(x.getShelfLife());
+            item.setShelf_life(x.getShelfLife());
             item.setSurplus(x.getSurplus());
-            item.setPurchasingDate(x.getPurchasingDate());
+            item.setPurchasing_date(x.getPurchasingDate());
 
             data.add(item);
         }
