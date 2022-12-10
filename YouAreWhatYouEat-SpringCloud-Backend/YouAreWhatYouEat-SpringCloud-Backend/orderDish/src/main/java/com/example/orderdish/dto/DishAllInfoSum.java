@@ -1,0 +1,20 @@
+package com.example.orderdish.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class DishAllInfoSum {
+    private List<DishAllInfo> dish_all=new ArrayList<DishAllInfo>();
+
+    public void AddInfo(DishAllInfo info)
+    {
+        dish_all.add(info);
+    }
+}

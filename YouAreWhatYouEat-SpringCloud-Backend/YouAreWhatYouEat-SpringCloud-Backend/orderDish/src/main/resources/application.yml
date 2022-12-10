@@ -4,6 +4,8 @@ server:
 spring:
   application:
     name: orderDish # ???????
+  jpa:
+    database: oracle
 
 eureka:
   client:
