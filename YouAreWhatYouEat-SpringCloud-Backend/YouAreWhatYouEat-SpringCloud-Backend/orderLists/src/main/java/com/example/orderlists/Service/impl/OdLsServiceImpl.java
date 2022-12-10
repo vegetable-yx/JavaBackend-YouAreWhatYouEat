@@ -41,10 +41,6 @@ public class OdLsServiceImpl implements OrderListService {
 
     @Override
     public GetOrders getOders(String start, String end) {
-
-
-
-
         Timestamp start_time ,end_time;
 
         start_time=new Timestamp(Long.MIN_VALUE);
@@ -153,13 +149,10 @@ public class OdLsServiceImpl implements OrderListService {
 
         result.setOrders(orders);
 
-        Dictionary<String,Integer> dc1=new Hashtable<>();
-        dc1.put("order_cunt",orderlistEntities.size());
-        Dictionary<String,Integer> dc2=new Hashtable<>();
-        dc2.put("total_credit",totalPay);
-        List<Dictionary> dicLs=new ArrayList<>();
-        dicLs.add(dc1);
-        dicLs.add(dc2);
+        Dictionary<String, Integer> dicLs=new Hashtable();
+        dicLs.put("order_count",orderlistEntities.size());
+        dicLs.put("total_credit",totalPay);
+
 
         result.setSummary(dicLs);
         result.setOrders(orders);

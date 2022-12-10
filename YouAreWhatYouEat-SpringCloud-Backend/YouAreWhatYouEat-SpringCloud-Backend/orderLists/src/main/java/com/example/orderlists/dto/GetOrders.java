@@ -17,5 +17,5 @@ public class GetOrders {
 
     List<Order> orders;
 
-    List<Dictionary> summary;
+    Dictionary summary;
 }

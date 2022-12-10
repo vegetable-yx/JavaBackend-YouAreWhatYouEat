@@ -12,5 +12,5 @@ public interface SensorLogsRepository
         extends
         JpaRepository<SensorLogEntity, BigInteger>,
         JpaSpecificationExecutor<SensorLogEntity> {
-    List<SensorLogEntity> findBySlogTimeBetween(Timestamp begin, Timestamp end);
+    List<SensorLogEntity> findBySlogTimeBetweenAndSensId(Timestamp begin, Timestamp end, BigInteger id);
 }

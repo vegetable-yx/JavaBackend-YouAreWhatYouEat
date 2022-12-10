@@ -38,7 +38,7 @@ public class SensorServiceImpl implements SensorService {
                 Timestamp beginTime = begin == null ? Timestamp.valueOf("0001-01-01 00:00:00") : Timestamp.valueOf(begin);
                 Timestamp endTime = end == null ? Timestamp.valueOf("9999-12-31 23:59:59") : Timestamp.valueOf(end);
 
-                List<SensorLogEntity> sl = sensorLogsRepository.findBySlogTimeBetween(beginTime, endTime);
+                List<SensorLogEntity> sl = sensorLogsRepository.findBySlogTimeBetweenAndSensId(beginTime, endTime, s.getSensId());
                 for (SensorLogEntity slg : sl) {
                     slm.getLog().add(new SensorLogRecord(slg));
                 }
