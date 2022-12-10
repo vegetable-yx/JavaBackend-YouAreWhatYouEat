@@ -56,11 +56,11 @@ public class PayServiceImpl implements PayService {
         if (orderlist.get().getOrderStatus().equals("已支付")) return null;
 
         SimpleDateFormat ft = new SimpleDateFormat("yyyyMMddHHmmss");
-        String oid = ft.format(orderlist.get().getCreationTime());
+        String oid = "O" + ft.format(orderlist.get().getCreationTime());
 
         try {
             AlipayTradePrecreateResponse response = Payment.FaceToFace()
-                    .preCreate("Apple iPhone11 128G", "2234567890", "5799.00");
+                    .preCreate("\"人如其食\"餐饮", oid, price.toString());
             result.setQrcode(response.getQrCode());
             return result;
         } catch (Exception e) {
