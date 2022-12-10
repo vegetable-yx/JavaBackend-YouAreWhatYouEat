@@ -29,9 +29,9 @@ public class OrderServiceImpl implements OrderService {
     private DishRepository dishRepository;
 
     @Override
-    public OrderInfoDto getOrderByTable(OrderByTableQuery query)
+    public OrderInfoDto getOrderByTable(BigInteger query)
     {
-        BigInteger tableId=query.getTable();
+        BigInteger tableId=query;
         List<OrderlistEntity> allOrderList=orderListRepository.findAllByTableId(tableId);
 
         OrderlistEntity latest=null;
@@ -56,6 +56,37 @@ public class OrderServiceImpl implements OrderService {
             List<DishorderlistEntity> allDish=dishOrderListRepository.findAllByOrderId(latest.getOrderId());
             for (DishorderlistEntity dish:allDish
                  ) {
+                price+=dish.getFinalPayment();
+            }
+            result.setTotal_price(price);
+
+            return result;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    @Override
+    public OrderInfoDto getOrderById(String query)
+    {
+
+        OrderlistEntity latest= orderListRepository.findByOrderId(query);
+
+        OrderInfoDto result=new OrderInfoDto();
+        if(latest!=null)
+        {
+            result.setOrder_id(latest.getOrderId());
+            result.setTable_id(latest.getTableId().toString());
+            result.setCreation_time(latest.getCreationTime().toString());
+            result.setOrder_status(latest.getOrderStatus());
+
+            //根据orderList找全部dishOrder算Price
+            Double price=0d;
+            List<DishorderlistEntity> allDish=dishOrderListRepository.findAllByOrderId(latest.getOrderId());
+            for (DishorderlistEntity dish:allDish
+            ) {
                 price+=dish.getFinalPayment();
             }
             result.setTotal_price(price);

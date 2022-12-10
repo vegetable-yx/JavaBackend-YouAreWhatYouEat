@@ -8,7 +8,7 @@ import java.math.BigInteger;
 public interface TableService {
     public DinningtableEntity findByTableId(BigInteger id);
 
-    QueueTableRespond getQueueTable(QueueTableRequest req);
+    QueueTableRespond getQueueTable(BigInteger req);
 
     public AllTableInfoDto findAllTables();
     public boolean setTableStatus(PutTableParam info);

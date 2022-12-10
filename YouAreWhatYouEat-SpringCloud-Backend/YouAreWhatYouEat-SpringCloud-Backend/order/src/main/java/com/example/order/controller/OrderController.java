@@ -5,10 +5,9 @@ import com.example.order.service.OrderService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import java.math.BigInteger;
 
 @Controller
 @RequestMapping(value = "/api/v1")
@@ -22,9 +21,16 @@ public class OrderController {
 
     @RequestMapping(value = "/orderByTable",method = RequestMethod.GET)
     @ResponseBody
-    public OrderInfoDto getOrderByTableId(@RequestBody OrderByTableQuery query)
+    public OrderInfoDto getOrderByTableId(@RequestParam BigInteger table)
     {
-        return orderService.getOrderByTable(query);
+        return orderService.getOrderByTable(table);
+    }
+
+    @RequestMapping(value = "/orderById",method = RequestMethod.GET)
+    @ResponseBody
+    public OrderInfoDto getOrderByTableId(@RequestParam String order_id)
+    {
+        return orderService.getOrderById(order_id);
     }
 
     @RequestMapping(value = "/orders",method = RequestMethod.GET)
