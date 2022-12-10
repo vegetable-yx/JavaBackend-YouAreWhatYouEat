@@ -73,7 +73,7 @@ public class DishesServiceImpl implements DishesService {
         GetDishItem info=new GetDishItem();
         info.setRate("");
         info.setName(dish.getDishName());
-        info.setId(dish.getDishId());
+        info.setId(dish.getDishId().toString());
         info.setVideo(dish.getVideo());
         info.setDescription(dish.getDishDescription());
         info.setPrice(dish.getDishPrice());

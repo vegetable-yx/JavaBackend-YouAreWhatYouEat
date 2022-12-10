@@ -14,7 +14,7 @@ import java.util.List;
 public class GetDishItem {
 
     @JsonProperty("id")
-    BigInteger id;
+    String id;
     @JsonProperty("name")
     String name;
     @JsonProperty("price")

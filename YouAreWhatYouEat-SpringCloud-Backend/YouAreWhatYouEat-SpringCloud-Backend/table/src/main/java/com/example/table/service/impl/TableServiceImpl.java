@@ -47,7 +47,7 @@ public class TableServiceImpl implements TableService {
     }
 
     @Override
-    public QueueTableRespond getQueueTable(QueueTableRequest req)
+    public QueueTableRespond getQueueTable(BigInteger req)
     {
         QueueTableRespond res=new QueueTableRespond(false,null,null);
         List<DinningtableEntity> tableEntities=tableRepository.findAll();
@@ -58,7 +58,7 @@ public class TableServiceImpl implements TableService {
             if(!(tableEntity.getOccupied()=="是"))
             {
                 //tot++;
-                if(tableEntity.getTableCapacity().intValue()>=req.getCustomer_number().intValue())
+                if(tableEntity.getTableCapacity().intValue()>=req.intValue())
                 {
                     res.setHas_table(true);
                     res.setTable_id(tableEntity.getTableId().toString());
@@ -128,7 +128,7 @@ public class TableServiceImpl implements TableService {
             String type = tableInfoDto.getTable_capacity().toString() + "人座";
             boolean match=false;
             int index=0;
-            for (String existType:allTableSummary2Dto.getOptions().getCategories()
+            for (String existType:allTableSummary2Dto.getOptions().getXaxis().getCategories()
                  ) {
                 if(type==existType)
                 {
@@ -139,7 +139,7 @@ public class TableServiceImpl implements TableService {
             }
             if(!match)
             {
-                allTableSummary2Dto.getOptions().getCategories().add(type);
+                allTableSummary2Dto.getOptions().getXaxis().getCategories().add(type);
                 allTableSummary2Dto.getSeries().get(0).getData().add(0);
                 allTableSummary2Dto.getSeries().get(1).getData().add(0);
             }

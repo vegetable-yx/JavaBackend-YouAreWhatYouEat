@@ -2,8 +2,12 @@ package com.example.order.service;
 
 import com.example.order.dto.*;
 
+import java.math.BigInteger;
+
 public interface OrderService {
-    OrderInfoDto getOrderByTable(OrderByTableQuery query);
+    OrderInfoDto getOrderByTable(BigInteger query);
+
+    OrderInfoDto getOrderById(String query);
 
     AllOrderInfo getAllOrder();
 

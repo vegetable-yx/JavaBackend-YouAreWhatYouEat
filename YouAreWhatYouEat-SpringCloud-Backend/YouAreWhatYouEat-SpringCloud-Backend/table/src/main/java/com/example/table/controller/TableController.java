@@ -55,11 +55,9 @@ public class TableController {
     }
 
     @RequestMapping(value = "/seat", method = RequestMethod.GET)
-    public ResponseEntity<QueueTableRespond> assignSeat(@RequestBody QueueTableRequest req)
+    public ResponseEntity<QueueTableRespond> assignSeat(@RequestParam BigInteger customer_number)
     {
-        System.out.println(req);
-
-        QueueTableRespond result=tableService.getQueueTable(req);
+        QueueTableRespond result=tableService.getQueueTable(customer_number);
         return new ResponseEntity<QueueTableRespond>(result, HttpStatus.OK);
     }
 

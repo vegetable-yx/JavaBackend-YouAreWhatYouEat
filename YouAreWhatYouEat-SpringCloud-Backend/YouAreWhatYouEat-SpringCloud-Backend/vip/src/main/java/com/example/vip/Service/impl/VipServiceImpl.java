@@ -58,10 +58,6 @@ public class VipServiceImpl implements VipService {
         AttrOfVIP attr2=new AttrOfVIP();
         attr2.setName("余额");
 
-
-
-
-
         ArrayList<BigInteger> integersLs1=new ArrayList<>();
 
         ArrayList<BigInteger> integersLs2=new ArrayList<>();
@@ -97,25 +93,17 @@ public class VipServiceImpl implements VipService {
         xaxis.put("categories", nameLs);
         listOfVip.setXaxis(xaxis);
 
+        Dictionary summary=new Hashtable();
+        List list1 = new ArrayList();
+        list1.add(attr1);
+        summary.put("series",list1);
+        summary.put("options",  listOfVip);
 
-
-        Dictionary<String,AttrOfVIP> dc1=new Hashtable<>();
-        dc1.put("series",attr1);
-        Dictionary<String, ListOfVip> dc2=new Hashtable<>();
-        dc2.put("options",  listOfVip);
-
-        ArrayList<Dictionary> summary=new ArrayList<>();
-        summary.add(dc1);
-        summary.add(dc2);
-
-        Dictionary<String,AttrOfVIP> dc3=new Hashtable<>();
-        dc3.put("series",attr2);
-        Dictionary<String, ListOfVip> dc4=new Hashtable<>();
-        dc4.put("options",  listOfVip);
-
-        ArrayList<Dictionary> summary2=new ArrayList<>();
-        summary2.add(dc3);
-        summary2.add(dc4);
+        Dictionary summary2=new Hashtable();
+        List list2 = new ArrayList();
+        list2.add(attr2);
+        summary2.put("series",list2);
+        summary2.put("options",  listOfVip);
 
 
         allVIPInfo.setVips(info);

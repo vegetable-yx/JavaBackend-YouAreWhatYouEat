@@ -32,7 +32,7 @@ public class AllTableSummary2Dto {
 
     public class Options
     {
-        private class XAxis
+        public class XAxis
         {
             public ArrayList<String> getCategories() {
                 return categories;
@@ -41,11 +41,11 @@ public class AllTableSummary2Dto {
             private ArrayList<String> categories = new ArrayList<String>();
         }
 
-        public ArrayList<String> getCategories() {
-            return this.xaxis.getCategories();
-        }
+        public XAxis xaxis=new XAxis();
 
-        private XAxis xaxis=new XAxis();
+        public XAxis getXaxis() {
+            return xaxis;
+        }
     }
 
     private ArrayList<Series> series = new ArrayList<Series>();

@@ -17,13 +17,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GetAllVip {
-
     ArrayList<VipInfo2> vips;
 
-    ArrayList<Dictionary> summary;
+    Dictionary summary;
 
-    ArrayList<Dictionary> summary2;
-
-
-
+    Dictionary summary2;
 }
