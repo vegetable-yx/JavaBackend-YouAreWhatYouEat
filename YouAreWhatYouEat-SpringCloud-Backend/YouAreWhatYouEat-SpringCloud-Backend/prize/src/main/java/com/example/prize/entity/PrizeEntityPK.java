@@ -8,19 +8,20 @@ import jakarta.persistence.Id;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class PrizeEntityPK implements Serializable {
-    private Date prizeDatetime;
+    private Timestamp prizeDatetime;
     private BigInteger employeeId;
     private String lv;
 
     @Column(name = "PRIZE_DATETIME")
     @Id
-    public Date getPrizeDatetime() {
+    public Timestamp getPrizeDatetime() {
         return prizeDatetime;
     }
 
-    public void setPrizeDatetime(Date prizeDatetime) {
+    public void setPrizeDatetime(Timestamp prizeDatetime) {
         this.prizeDatetime = prizeDatetime;
     }
 

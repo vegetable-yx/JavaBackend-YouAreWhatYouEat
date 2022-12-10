@@ -8,18 +8,19 @@ import jakarta.persistence.Id;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class PayrollEntityPK implements Serializable {
-    private Date payDatetime;
+    private Timestamp payDatetime;
     private BigInteger employeeId;
 
     @Column(name = "PAY_DATETIME")
     @Id
-    public Date getPayDatetime() {
+    public Timestamp getPayDatetime() {
         return payDatetime;
     }
 
-    public void setPayDatetime(Date payDatetime) {
+    public void setPayDatetime(Timestamp payDatetime) {
         this.payDatetime = payDatetime;
     }
 
