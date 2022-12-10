@@ -4,13 +4,14 @@ import jakarta.persistence.*;
 
 import java.math.BigInteger;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "WORK_PLAN", schema = "YANG", catalog = "")
 public class WorkPlanEntity {
     private BigInteger id;
-    private Date timeStart;
-    private Date timeEnd;
+    private Timestamp timeStart;
+    private Timestamp timeEnd;
     private String place;
     private String occupation;
     private BigInteger no;
@@ -27,21 +28,21 @@ public class WorkPlanEntity {
 
     @Basic
     @Column(name = "TIME_START")
-    public Date getTimeStart() {
+    public Timestamp getTimeStart() {
         return timeStart;
     }
 
-    public void setTimeStart(Date timeStart) {
+    public void setTimeStart(Timestamp timeStart) {
         this.timeStart = timeStart;
     }
 
     @Basic
     @Column(name = "TIME_END")
-    public Date getTimeEnd() {
+    public Timestamp getTimeEnd() {
         return timeEnd;
     }
 
-    public void setTimeEnd(Date timeEnd) {
+    public void setTimeEnd(Timestamp timeEnd) {
         this.timeEnd = timeEnd;
     }
 

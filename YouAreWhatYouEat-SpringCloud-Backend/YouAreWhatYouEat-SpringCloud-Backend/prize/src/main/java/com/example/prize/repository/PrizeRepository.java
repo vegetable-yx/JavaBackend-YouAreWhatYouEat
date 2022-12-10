@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigInteger;
+import java.sql.Timestamp;
 import java.util.Collection;
 import java.sql.Date;
 import java.util.List;
@@ -17,6 +18,6 @@ public interface PrizeRepository
         extends JpaRepository<PrizeEntity, PrizeEntityPK>, JpaSpecificationExecutor<PrizeEntity>
 {
     public List<PrizeEntity> findAll();
-    public Optional<PrizeEntity> findByLvAndEmployeeIdAndPrizeDatetime(String lv, BigInteger id, Date time);
+    public Optional<PrizeEntity> findByLvAndEmployeeIdAndPrizeDatetime(String lv, BigInteger id, Timestamp time);
     public PrizeEntity saveAndFlush(PrizeEntity prizeEntity);
 }

@@ -4,21 +4,22 @@ import jakarta.persistence.*;
 
 import java.math.BigInteger;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "PAYROLL", schema = "YANG", catalog = "")
 @IdClass(PayrollEntityPK.class)
 public class PayrollEntity {
-    private Date payDatetime;
+    private Timestamp payDatetime;
     private BigInteger employeeId;
 
     @Id
     @Column(name = "PAY_DATETIME")
-    public Date getPayDatetime() {
+    public Timestamp getPayDatetime() {
         return payDatetime;
     }
 
-    public void setPayDatetime(Date payDatetime) {
+    public void setPayDatetime(Timestamp payDatetime) {
         this.payDatetime = payDatetime;
     }
 

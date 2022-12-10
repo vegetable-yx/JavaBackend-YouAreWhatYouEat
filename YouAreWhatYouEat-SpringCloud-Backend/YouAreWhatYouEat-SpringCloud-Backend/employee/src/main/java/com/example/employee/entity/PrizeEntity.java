@@ -4,22 +4,23 @@ import jakarta.persistence.*;
 
 import java.math.BigInteger;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "PRIZE", schema = "YANG", catalog = "")
 @IdClass(PrizeEntityPK.class)
 public class PrizeEntity {
-    private Date prizeDatetime;
+    private Timestamp prizeDatetime;
     private BigInteger employeeId;
     private String lv;
 
     @Id
     @Column(name = "PRIZE_DATETIME")
-    public Date getPrizeDatetime() {
+    public Timestamp getPrizeDatetime() {
         return prizeDatetime;
     }
 
-    public void setPrizeDatetime(Date prizeDatetime) {
+    public void setPrizeDatetime(Timestamp prizeDatetime) {
         this.prizeDatetime = prizeDatetime;
     }
 

@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigInteger;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -138,10 +139,10 @@ public class PrizeServiceImpl implements PrizeService {
         PrizeEntity prizeEntity = new PrizeEntity();
         prizeEntity.setLv(prizeRecordInDto.getLv());
         prizeEntity.setEmployeeId(BigInteger.valueOf(Long.valueOf(prizeRecordInDto.getEmployeeId())));
-        SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         java.util.Date d = ft.parse(prizeRecordInDto.getPrizeDatetime());
-        prizeEntity.setPrizeDatetime(new java.sql.Date(d.getTime()));
+        prizeEntity.setPrizeDatetime(Timestamp.valueOf(prizeRecordInDto.getPrizeDatetime()));
 
         if (prizeRepository.findByLvAndEmployeeIdAndPrizeDatetime(prizeEntity.getLv(), prizeEntity.getEmployeeId(), prizeEntity.getPrizeDatetime()).isPresent())
             return false;

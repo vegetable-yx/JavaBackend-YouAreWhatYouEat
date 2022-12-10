@@ -42,28 +42,34 @@ public class EmployeeServiceImpl implements EmployeeService {
         List<EmployeeEntity> employeeEntities = employeeRepository.findAll();
         List<AllEmployeeInfoOutDto> result = new ArrayList<>();
         ModelMapper modelMapper = new ModelMapper();
-        for(EmployeeEntity employeeEntity : employeeEntities) {
-            AllEmployeeInfoOutDto allEmployeeInfoDto = modelMapper.map(employeeEntity, AllEmployeeInfoOutDto.class);
-            allEmployeeInfoDto.setAvatar(baseUrl + "employees/employee_" + allEmployeeInfoDto.getId() + ".png");
 
-            // get attendance rate
-            // List<AttendEntity> attends = attendRepository.findAllByEmployeeId(employeeEntity.getId());
-            Collection<AttendEntity> attends = employeeEntity.getAttends();
-            if (attends.size() == 0) {
-                allEmployeeInfoDto.setAttendance_rate(0.0);
-            } else {
-                Double count = 0.0;
-                for(AttendEntity attendEntity : attends) {
-                    if (attendEntity.getAttendance() == BigInteger.ONE) {
-                        count++;
+        try {
+            for (EmployeeEntity employeeEntity : employeeEntities) {
+                AllEmployeeInfoOutDto allEmployeeInfoDto = modelMapper.map(employeeEntity, AllEmployeeInfoOutDto.class);
+                allEmployeeInfoDto.setAvatar(baseUrl + "employees/employee_" + allEmployeeInfoDto.getId() + ".png");
+
+                // get attendance rate
+                // List<AttendEntity> attends = attendRepository.findAllByEmployeeId(employeeEntity.getId());
+                Collection<AttendEntity> attends = employeeEntity.getAttends();
+                if (attends.size() == 0) {
+                    allEmployeeInfoDto.setAttendance_rate(0.0);
+                } else {
+                    Double count = 0.0;
+                    for (AttendEntity attendEntity : attends) {
+                        if (attendEntity.getAttendance() == BigInteger.ONE) {
+                            count++;
+                        }
                     }
+                    allEmployeeInfoDto.setAttendance_rate(count / Double.valueOf(attends.size()));
                 }
-                allEmployeeInfoDto.setAttendance_rate(count / Double.valueOf(attends.size()));
-            }
 
-            // get prize times
-            allEmployeeInfoDto.setAward_times(Double.valueOf(employeeEntity.getPrizes().size()));
-            result.add(allEmployeeInfoDto);
+                // get prize times
+                allEmployeeInfoDto.setAward_times(Double.valueOf(employeeEntity.getPrizes().size()));
+                result.add(allEmployeeInfoDto);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
         return result;
     }
