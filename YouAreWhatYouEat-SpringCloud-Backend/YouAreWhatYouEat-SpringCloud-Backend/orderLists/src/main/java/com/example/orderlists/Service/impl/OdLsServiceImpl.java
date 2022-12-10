@@ -1,19 +1,18 @@
 package com.example.orderlists.Service.impl;
 
-import com.example.orderlists.Entity.DishorderlistEntity;
-import com.example.orderlists.Entity.HasdishEntity;
-import com.example.orderlists.Entity.OrderlistEntity;
-import com.example.orderlists.Entity.PromotionEntity;
+import com.example.orderlists.Entity.*;
 import com.example.orderlists.Repository.*;
 import com.example.orderlists.Service.OrderListService;
-import com.example.orderlists.dto.GetOrders;
-import com.example.orderlists.dto.Order;
+import com.example.orderlists.dto.*;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+import org.bouncycastle.asn1.cms.TimeStampedData;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
-import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Hashtable;
@@ -37,18 +36,29 @@ public class OdLsServiceImpl implements OrderListService {
     @Resource
     DishesRepository dishesRepository;
 
+    @Resource
+    DishTagsRepository dishTagsRepository;
+
     @Override
     public GetOrders getOders(String start, String end) {
 
 
-        System.out.println(start);
-        System.out.println(end);
-        Date start_time ,end_time;
-
-        start_time=new Date(Long.MIN_VALUE);
-        end_time=new Date(Long.MAX_VALUE);
 
 
+        Timestamp start_time ,end_time;
+
+        start_time=new Timestamp(Long.MIN_VALUE);
+        end_time=new Timestamp(Long.MAX_VALUE);
+        System.out.println(start_time);
+        if (start!=null){
+            start_time=Timestamp.valueOf(start);
+        }
+        if(end!=null)
+        {
+            end_time=Timestamp.valueOf(end);
+        }
+
+        System.out.println(start_time);
 
 
         List<OrderlistEntity> ls=odLsRepository.findAll();
@@ -160,5 +170,115 @@ public class OdLsServiceImpl implements OrderListService {
         }
 
         return result;
+    }
+
+
+    @Override
+    public GetDishes getDishes(String start, String end) {
+        List<DishorderlistEntity> ls=dsOdLsRepository.findAll();
+        if(ls.size()==0){
+            return null;
+        }
+
+        Timestamp start_time ,end_time;
+
+        start_time=new Timestamp(Long.MIN_VALUE);
+        end_time=new Timestamp(Long.MAX_VALUE);
+
+        if (start!=null){
+            start_time=Timestamp.valueOf(start);
+        }
+        if(end!=null)
+        {
+            end_time=Timestamp.valueOf(end);
+        }
+
+        GetDishes getDishes=new GetDishes();
+        List<Dish> data=new ArrayList<>();
+        for(DishorderlistEntity item:ls){
+
+            if(odLsRepository.findFirstByOrderId(item.getOrderId()).getCreationTime().compareTo(start_time)<0
+                    ||
+                    odLsRepository.findFirstByOrderId(item.getOrderId()).getCreationTime().compareTo(end_time)>0
+            ){
+                continue;
+            }
+
+
+            Dish dish=new Dish();
+            dish.setDishName(dishesRepository.findFirstByDishId(item.getDishId()).getDishName());
+            dish.setDishId(item.getDishId());
+            dish.setDishStatus(item.getDishStatus());
+            dish.setDishOrderId(item.getDishOrderId());
+            dish.setPay(BigInteger.valueOf(item.getFinalPayment()));
+            dish.setCreationTime(odLsRepository.findFirstByOrderId(item.getOrderId()).getCreationTime());
+            dish.setOrderId(item.getOrderId());
+
+            data.add(dish);
+
+        }
+
+        getDishes.setCode(200);
+        getDishes.setData(data);
+
+
+        return getDishes;
+    }
+
+
+    @Override
+    public GetDishNums getDishesNum(String start, String end) {
+
+        List<DishorderlistEntity> ls=dsOdLsRepository.findAll();
+        if(ls.size()==0){
+            return null;
+        }
+
+        Timestamp start_time ,end_time;
+
+        start_time=new Timestamp(Long.MIN_VALUE);
+        end_time=new Timestamp(Long.MAX_VALUE);
+
+        if (start!=null){
+            start_time=Timestamp.valueOf(start);
+        }
+        if(end!=null)
+        {
+            end_time=Timestamp.valueOf(end);
+        }
+        GetDishNums getDishNums=new GetDishNums();
+        List<DishNum > data=new ArrayList<>();
+        for(DishorderlistEntity item:ls){
+            if(odLsRepository.findFirstByOrderId(item.getOrderId()).getCreationTime().compareTo(start_time)<0
+                    ||
+                    odLsRepository.findFirstByOrderId(item.getOrderId()).getCreationTime().compareTo(end_time)>0
+            ){
+                continue;
+            }
+            DishNum dishNum=new DishNum();
+
+            List<String> tags=new ArrayList<>();
+            for(DishHasTagEntity dishHasTagEntity:dishesRepository.findFirstByDishId(item.getDishId()).getTags()){
+                tags.add(dishTagsRepository.findFirstByDtagId(dishHasTagEntity.getDtagId()).getDtagName());
+            }
+            dishNum.setTags(tags);
+            dishNum.setPrice(BigInteger.valueOf(dishesRepository.findFirstByDishId(item.getDishId()).getDishPrice()));
+            dishNum.setId(item.getDishId());
+            dishNum.setName(dishesRepository.findFirstByDishId(item.getDishId()).getDishName());
+
+            int num=0,totalPay=0;
+            for(DishorderlistEntity count:ls){
+                if(count.getDishId()==item.getDishId()){
+                    num++;
+                    totalPay+=count.getFinalPayment();
+                }
+            }
+            dishNum.setTimes(num);
+            dishNum.setTotalPay(BigInteger.valueOf(totalPay));
+            data.add(dishNum);
+        }
+        getDishNums.setCode(200);
+        getDishNums.setData(data);
+        return getDishNums;
     }
 }

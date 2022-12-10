@@ -14,4 +14,6 @@ public interface DishesRepository
 
     @Query("SELECT p.dishPrice FROM DishesEntity p where p.dishId=?1")
     int getPriceById(BigInteger id);
+
+    DishesEntity findFirstByDishId(BigInteger id);
 }

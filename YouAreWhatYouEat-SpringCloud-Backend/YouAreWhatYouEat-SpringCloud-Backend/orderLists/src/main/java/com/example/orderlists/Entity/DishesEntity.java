@@ -3,6 +3,7 @@ package com.example.orderlists.Entity;
 import jakarta.persistence.*;
 
 import java.math.BigInteger;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -13,6 +14,8 @@ public class DishesEntity {
     private int dishPrice;
     private String dishDescription;
     private String video;
+
+    private Collection<DishHasTagEntity> tags;
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -76,5 +79,15 @@ public class DishesEntity {
     @Override
     public int hashCode() {
         return Objects.hash(dishId, dishName, dishPrice, dishDescription, video);
+    }
+
+
+    @OneToMany(mappedBy = "dishId")
+    public Collection<DishHasTagEntity> getTags(){
+        return tags;
+    }
+
+    public void setTags(Collection<DishHasTagEntity> tags) {
+        this.tags = tags;
     }
 }

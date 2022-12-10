@@ -9,4 +9,6 @@ import java.math.BigInteger;
 public interface OdLsRepository
         extends JpaRepository<OrderlistEntity, BigInteger>, JpaSpecificationExecutor<OrderlistEntity>
 {
+
+    OrderlistEntity findFirstByOrderId(String id);
 }

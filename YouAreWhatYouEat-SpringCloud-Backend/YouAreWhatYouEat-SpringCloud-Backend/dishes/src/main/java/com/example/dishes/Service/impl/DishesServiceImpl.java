@@ -94,10 +94,11 @@ public class DishesServiceImpl implements DishesService {
         //star
         Collection<BigInteger> stars=commentRepository.FindStarsById(dish.getDishId());
         BigInteger star=BigInteger.valueOf(0);
-        for(BigInteger s:stars){
-            star=star.add(s);
+
+        if(stars.size()!=0){
+            star=star.divide(BigInteger.valueOf(stars.size()));
         }
-        star=star.divide(BigInteger.valueOf(stars.size()));
+
         info.setRate(star.toString());
 
 

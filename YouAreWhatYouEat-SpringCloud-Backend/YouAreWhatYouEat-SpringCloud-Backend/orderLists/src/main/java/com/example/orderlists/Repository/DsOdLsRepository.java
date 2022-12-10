@@ -13,4 +13,6 @@ public interface DsOdLsRepository
         extends JpaRepository<DishorderlistEntity, BigInteger>, JpaSpecificationExecutor<DishorderlistEntity> {
 
     List<DishorderlistEntity> findAllByOrderId(String id);
+
+
 }

@@ -2,6 +2,8 @@ package com.example.orderlists.Controller;
 
 
 import com.example.orderlists.Service.impl.OdLsServiceImpl;
+import com.example.orderlists.dto.GetDishNums;
+import com.example.orderlists.dto.GetDishes;
 import com.example.orderlists.dto.GetOrders;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -28,6 +30,28 @@ public class OrderListsController {
     @GetMapping("")
     public ResponseEntity<Object> getAllOrders(@RequestParam String begin,@RequestParam String end){
         GetOrders ls=odLsService.getOders(begin, end);
+        if(ls==null){
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+        }
+        else{
+            return ResponseEntity.ok(ls);
+        }
+    }
+
+    @GetMapping("/dishOrders")
+    public ResponseEntity<Object> getAllDishes(@RequestParam String begin,@RequestParam String end){
+        GetDishes ls=odLsService.getDishes(begin, end);
+        if(ls==null){
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+        }
+        else{
+            return ResponseEntity.ok(ls);
+        }
+    }
+
+    @GetMapping("/dishOrderNum")
+    public ResponseEntity<Object> getAllDishesNum(@RequestParam String begin,@RequestParam String end){
+        GetDishNums ls=odLsService.getDishesNum(begin, end);
         if(ls==null){
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
         }
