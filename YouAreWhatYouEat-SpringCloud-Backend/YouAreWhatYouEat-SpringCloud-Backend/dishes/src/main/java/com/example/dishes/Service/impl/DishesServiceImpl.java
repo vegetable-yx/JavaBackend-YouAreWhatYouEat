@@ -11,7 +11,6 @@ import com.example.dishes.dto.List.GetOrderListItem;
 import com.example.dishes.dto.List.OrderDishItem;
 import jakarta.annotation.Resource;
 
-import jdk.swing.interop.SwingInterOpUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,8 +18,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Collection;
 import java.util.List;
 
@@ -28,8 +30,11 @@ import java.util.List;
 @Slf4j
 @Service
 public class DishesServiceImpl implements DishesService {
+    @Value("${myConfiguration.url}")
+    private String imgaeUrl;
 
-
+    @Value("${myConfiguration.path}")
+    private String localPath;
 
     @Resource
     private DishesRepository dishesRepository;
@@ -72,6 +77,7 @@ public class DishesServiceImpl implements DishesService {
         info.setVideo(dish.getVideo());
         info.setDescription(dish.getDishDescription());
         info.setPrice(dish.getDishPrice());
+        info.setPicture(imgaeUrl + "dishes/dish_" + dish.getDishId().toString() + ".png");
         List<DishHasTagEntity> tagLs=new ArrayList<DishHasTagEntity>(dish.getTags());
         List<String> tags=new ArrayList<>();
         //tag
@@ -113,7 +119,6 @@ public class DishesServiceImpl implements DishesService {
     @Override
     public HttpStatus postAddDish(PostDishItem item) {
 
-        System.out.println(item.toString());
         DishesEntity newDish=new DishesEntity();
 
         newDish.setDishDescription(item.getDescription());
@@ -126,28 +131,27 @@ public class DishesServiceImpl implements DishesService {
 
         newDish.setVideo(item.getVideo());
 
-
-        System.out.println(newDish.getDishPrice());
-        System.out.println(newDish.getDishId());
-        System.out.println(newDish.getDishName());
-        System.out.printf(newDish.getVideo());
-        System.out.println(newDish.getDishDescription());
-        System.out.println(newDish);
-
         try {
-
-
             dishesRepository.saveAndFlush(newDish);
-            System.out.println("Dish CHENGGONG");
 
+            // upload pictures
+            Base64.Decoder decoder = Base64.getDecoder();
+            if (item.getPicture() != null && !item.getPicture().isEmpty()) {
+                // Base64
+                byte[] b = decoder.decode(item.getPicture());
+                String imgFilePath = localPath + "dishes/dish_" + item.getId().toString() + ".png";
+                OutputStream out = new FileOutputStream(imgFilePath);
+                out.write(b);
+                out.flush();
+                out.close();
+            }
         }
         catch (Exception e){
             return HttpStatus.BAD_REQUEST;
         }
 
         //插tag
-
-        for(String tagName:item.getTags()){
+        for(String tagName: item.getTags()){
             DishHasTagEntity dishHasTagEntity=new DishHasTagEntity();
 
             List<BigInteger> id=dishTagsRepository.FindIdByName(tagName);
@@ -156,20 +160,17 @@ public class DishesServiceImpl implements DishesService {
             dishHasTagEntity.setDtagId(id.get(0));
 
             try {
-                System.out.println("try");
                 dishesRepository.flush();
                 dishHasTagRepository.saveAndFlush(dishHasTagEntity);
             }
-            catch (Exception e){
+            catch (Exception e) {
                 return HttpStatus.BAD_REQUEST;
             }
 
         }
-        System.out.println("ing CHENGGONG");
+
         //插tag
         for (String ingName:item.getIngs()){
-            System.out.println(ingName);
-
             DisheNeedIngrEntity disheNeedIngrEntity=new DisheNeedIngrEntity();
             disheNeedIngrEntity.setDishId(item.getId());
             disheNeedIngrEntity.setIngrId(ingredientsRepository.findFirstByIngrName(ingName).getIngrId());
@@ -209,8 +210,6 @@ public class DishesServiceImpl implements DishesService {
         dishesEntity.setDishId(item.getId());
         dishesEntity.setVideo(dishesRepository.findVideoByDishId(item.getId()).get(0));
         try {
-            System.out.println("Dish CHENGGONG");
-            System.out.println(dishesEntity.toString());
             dishesRepository.saveAndFlush(dishesEntity);
         }
         catch (Exception e){
@@ -225,7 +224,6 @@ public class DishesServiceImpl implements DishesService {
             dishHasTagEntity.setDtagId(id.get(0));
 
             try {
-                System.out.println("try");
                 dishesRepository.flush();
                 dishHasTagRepository.saveAndFlush(dishHasTagEntity);
             }
@@ -234,11 +232,8 @@ public class DishesServiceImpl implements DishesService {
             }
 
         }
-        System.out.println("ing CHENGGONG");
         //插tag
         for (String ingName:item.getIngs()){
-            System.out.println(ingName);
-
             DisheNeedIngrEntity disheNeedIngrEntity=new DisheNeedIngrEntity();
             disheNeedIngrEntity.setDishId(item.getId());
             disheNeedIngrEntity.setIngrId(ingredientsRepository.findFirstByIngrName(ingName).getIngrId());
@@ -267,7 +262,6 @@ public class DishesServiceImpl implements DishesService {
             return HttpStatus.NO_CONTENT;
         }
         try{
-            System.out.println("开删除"+id);
             dishHasTagRepository.deleteByDishId(id);
             dishNeedIngrRepository.deleteByDishId(id);
             commentRepository.deleteByDishId(id);

@@ -46,7 +46,6 @@ public class DishesController {
 
     @PostMapping("")
     public ResponseEntity<Object> postAddDish(@RequestBody PostDishItem p) {
-        System.out.println(p.toString());
         return new ResponseEntity<>(dishesService.postAddDish(p));
     }
     @PatchMapping  ("")

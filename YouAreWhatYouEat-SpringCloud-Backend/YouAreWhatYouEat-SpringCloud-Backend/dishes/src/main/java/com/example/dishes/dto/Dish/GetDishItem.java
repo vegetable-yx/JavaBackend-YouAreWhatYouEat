@@ -13,21 +13,21 @@ import java.util.List;
 @NoArgsConstructor
 public class GetDishItem {
 
-    @JsonProperty("dish_id")
+    @JsonProperty("id")
     BigInteger id;
-    @JsonProperty("dish_name")
+    @JsonProperty("name")
     String dishName;
-    @JsonProperty("dish_price")
+    @JsonProperty("price")
     int price;
-    @JsonProperty("dish_description")
+    @JsonProperty("description")
     String description;
-    @JsonProperty("dish_video")
+    @JsonProperty("video")
     String video;
-    @JsonProperty("dish_picture")
+    @JsonProperty("picture")
     String picture;
-    @JsonProperty("dish_rate")
+    @JsonProperty("rate")
     String rate;
-    @JsonProperty("dish_tags")
+    @JsonProperty("tags")
     List<String> tags;
     @JsonProperty("dish_ings")
     List<String> ings;

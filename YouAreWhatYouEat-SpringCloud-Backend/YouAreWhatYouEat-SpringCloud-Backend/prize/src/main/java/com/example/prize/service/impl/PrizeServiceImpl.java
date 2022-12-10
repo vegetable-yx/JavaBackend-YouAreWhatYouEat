@@ -85,8 +85,6 @@ public class PrizeServiceImpl implements PrizeService {
 
     @Override
     public boolean addAward(AwardInDto awardInDto) {
-        if (awardRepository.findByLv(awardInDto.getLv()).isPresent())
-            return false;
         ModelMapper modelMapper = new ModelMapper();
         AwardEntity awardEntity = modelMapper.map(awardInDto, AwardEntity.class);
         awardEntity.setPrizes(null);
