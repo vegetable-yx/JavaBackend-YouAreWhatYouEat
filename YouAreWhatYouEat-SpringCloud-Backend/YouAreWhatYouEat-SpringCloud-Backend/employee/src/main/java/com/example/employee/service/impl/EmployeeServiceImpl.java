@@ -76,10 +76,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public boolean addEmployee(OneEmployeeInDto employeeDto) {
-        long id = Long.valueOf(employeeDto.getId());
-        Optional<EmployeeEntity> tem = employeeRepository.findById(BigInteger.valueOf(id));
-        if (!tem.isEmpty()) return false;
-
         ModelMapper modelMapper = new ModelMapper();
         EmployeeEntity employee = modelMapper.map(employeeDto, EmployeeEntity.class);
         employee.setAttends(null);
