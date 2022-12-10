@@ -9,17 +9,17 @@ import com.my.promotion.repository.HasDishRepository;
 import com.my.promotion.repository.PromotionRepository;
 import com.my.promotion.service.PromotionService;
 import jakarta.annotation.Resource;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class PromotionServiceImpl implements PromotionService {
@@ -32,6 +32,9 @@ public class PromotionServiceImpl implements PromotionService {
 
     @Resource
     private HasDishRepository hasDishRepository;
+
+    @Value("${myConfiguration.path}")
+    private String imagePath;
 
     @Override
     public List<PromotionRecord> getPromotions() {
@@ -63,7 +66,7 @@ public class PromotionServiceImpl implements PromotionService {
     @Transactional
     @Override
     public HttpStatus postPromotion(PromotionPostRecord p) {
-        System.out.println(p.getCover());
+//        System.out.println(p.getCover());
         PromotionEntity ret = new PromotionEntity();
         List<PromotionEntity> pros = promotionRepository.findAll();
         Optional<PromotionEntity> maxId = pros.stream().max(
@@ -73,6 +76,7 @@ public class PromotionServiceImpl implements PromotionService {
         if (maxId.isPresent()) {
             pId = maxId.get().getPromotionId().add(BigInteger.ONE);
         }
+
         ret.setPromotionId(pId);
         Timestamp startTime, endTime;
         try {
@@ -102,10 +106,20 @@ public class PromotionServiceImpl implements PromotionService {
             }
         }
         try {
+            Base64.Decoder decoder = Base64.getDecoder();
+            if (p.getCover() != null && !p.getCover().isEmpty()) {
+                byte[] b = decoder.decode(p.getCover());
+                String imgFilePath = imagePath + "promotions/promotion_" + pId.toString() + ".png";
+                OutputStream out = new FileOutputStream(imgFilePath);
+                out.write(b);
+                out.flush();
+                out.close();
+            }
             promotionRepository.save(ret);
             return HttpStatus.CREATED;
         }
         catch (Exception e) {
+            e.printStackTrace();
             return HttpStatus.INTERNAL_SERVER_ERROR;
         }
     }

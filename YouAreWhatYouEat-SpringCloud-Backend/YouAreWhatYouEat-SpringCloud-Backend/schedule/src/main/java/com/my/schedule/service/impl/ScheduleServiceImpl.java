@@ -12,6 +12,7 @@ import com.my.schedule.repository.EmployeeRepository;
 import com.my.schedule.repository.WorkPlanRepository;
 import com.my.schedule.service.ScheduleService;
 import jakarta.annotation.Resource;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,6 +34,9 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Resource
     AttendRepository attendRepository;
+
+    @Value("${myConfiguration.url}")
+    private String imageUrl;
 
     @Override
     public List<ScheduleInfo> getScheduleInfo(String start, String end, String id, String place, String occupation) {
@@ -127,7 +131,7 @@ public class ScheduleServiceImpl implements ScheduleService {
                 emp.setId(employee.getId().toString());
                 emp.setName(employee.getName());
                 emp.setGender(employee.getGender());
-                emp.setAvatar("");
+                emp.setAvatar(this.imageUrl + "employees/" + "employee_" + emp.getId() + ".png");
                 info.add(emp);
             }
         }
