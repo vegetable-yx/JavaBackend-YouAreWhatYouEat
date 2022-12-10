@@ -8,7 +8,6 @@ import java.util.Objects;
 @Entity
 @Table(name = "INGREDIENTS", schema = "YANG", catalog = "")
 public class IngredientsEntity {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "INGR_ID")
     private BigInteger ingrId;

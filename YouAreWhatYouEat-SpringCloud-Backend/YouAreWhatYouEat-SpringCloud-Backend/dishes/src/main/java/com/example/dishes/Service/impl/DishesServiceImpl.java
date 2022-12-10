@@ -1,9 +1,6 @@
 package com.example.dishes.Service.impl;
 
-import com.example.dishes.Entity.DishHasTagEntity;
-import com.example.dishes.Entity.DisheNeedIngrEntity;
-import com.example.dishes.Entity.DishesEntity;
-import com.example.dishes.Entity.DishorderlistEntity;
+import com.example.dishes.Entity.*;
 import com.example.dishes.Repository.*;
 import com.example.dishes.Service.DishesService;
 import com.example.dishes.dto.Dish.GetDishItem;
@@ -135,22 +132,31 @@ public class DishesServiceImpl implements DishesService {
         System.out.printf(newDish.getVideo());
         System.out.println(newDish.getDishDescription());
         System.out.println(newDish);
+
         try {
-            System.out.println("Dish CHENGGONG");
+
 
             dishesRepository.saveAndFlush(newDish);
-
+            System.out.println("Dish CHENGGONG");
 
         }
         catch (Exception e){
             return HttpStatus.BAD_REQUEST;
         }
-        for(String ingName:item.getIngs()){
+
+        //插tag
+
+        for(String tagName:item.getTags()){
             DishHasTagEntity dishHasTagEntity=new DishHasTagEntity();
-            List<BigInteger> id=ingredientsRepository.findIdByName(ingName);
+
+            List<BigInteger> id=dishTagsRepository.FindIdByName(tagName);
+
             dishHasTagEntity.setDishId(item.getId());
             dishHasTagEntity.setDtagId(id.get(0));
+
             try {
+                System.out.println("try");
+                dishesRepository.flush();
                 dishHasTagRepository.saveAndFlush(dishHasTagEntity);
             }
             catch (Exception e){
@@ -158,10 +164,14 @@ public class DishesServiceImpl implements DishesService {
             }
 
         }
-        for (String tagName:item.getTags()){
+        System.out.println("ing CHENGGONG");
+        //插tag
+        for (String ingName:item.getIngs()){
+            System.out.println(ingName);
+
             DisheNeedIngrEntity disheNeedIngrEntity=new DisheNeedIngrEntity();
             disheNeedIngrEntity.setDishId(item.getId());
-            disheNeedIngrEntity.setIngrId(dishTagsRepository.FindIdByName(tagName).get(0));
+            disheNeedIngrEntity.setIngrId(ingredientsRepository.findFirstByIngrName(ingName).getIngrId());
             try {
                 dishNeedIngrRepository.saveAndFlush(disheNeedIngrEntity);
             }
@@ -171,6 +181,8 @@ public class DishesServiceImpl implements DishesService {
         }
 
         return HttpStatus.OK;
+
+
     }
 
 
@@ -203,12 +215,17 @@ public class DishesServiceImpl implements DishesService {
         catch (Exception e){
             return HttpStatus.BAD_REQUEST;
         }
-        for(String ingName:item.getIngs()){
+        for(String tagName:item.getTags()){
             DishHasTagEntity dishHasTagEntity=new DishHasTagEntity();
-            List<BigInteger> id=ingredientsRepository.findIdByName(ingName);
+
+            List<BigInteger> id=dishTagsRepository.FindIdByName(tagName);
+
             dishHasTagEntity.setDishId(item.getId());
             dishHasTagEntity.setDtagId(id.get(0));
+
             try {
+                System.out.println("try");
+                dishesRepository.flush();
                 dishHasTagRepository.saveAndFlush(dishHasTagEntity);
             }
             catch (Exception e){
@@ -216,13 +233,16 @@ public class DishesServiceImpl implements DishesService {
             }
 
         }
-        for (String tagName:item.getTags()){
+        System.out.println("ing CHENGGONG");
+        //插tag
+        for (String ingName:item.getIngs()){
+            System.out.println(ingName);
+
             DisheNeedIngrEntity disheNeedIngrEntity=new DisheNeedIngrEntity();
             disheNeedIngrEntity.setDishId(item.getId());
-            disheNeedIngrEntity.setIngrId(dishTagsRepository.FindIdByName(tagName).get(0));
+            disheNeedIngrEntity.setIngrId(ingredientsRepository.findFirstByIngrName(ingName).getIngrId());
             try {
                 dishNeedIngrRepository.saveAndFlush(disheNeedIngrEntity);
-
             }
             catch (Exception e){
                 return HttpStatus.BAD_REQUEST;

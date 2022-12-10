@@ -15,7 +15,6 @@ public class DisheNeedIngrEntityPK implements Serializable {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public BigInteger getDishId() {
         return dishId;
     }

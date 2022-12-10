@@ -20,5 +20,7 @@ public interface IngredientsRepository
     @Query("select distinct p.ingrId from IngredientsEntity p where p.ingrName=?1")
     List<BigInteger> findIdByName(String name);
 
+    IngredientsEntity findFirstByIngrName(String name);
+
 
 }

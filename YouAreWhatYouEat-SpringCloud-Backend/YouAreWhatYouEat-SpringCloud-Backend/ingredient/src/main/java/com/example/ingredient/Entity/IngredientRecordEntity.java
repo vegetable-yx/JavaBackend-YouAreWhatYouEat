@@ -9,7 +9,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "INGREDIENT_RECORD", schema = "YANG", catalog = "")
 public class IngredientRecordEntity {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Id
     @Column(name = "RECORD_ID")
     private BigInteger recordId;
