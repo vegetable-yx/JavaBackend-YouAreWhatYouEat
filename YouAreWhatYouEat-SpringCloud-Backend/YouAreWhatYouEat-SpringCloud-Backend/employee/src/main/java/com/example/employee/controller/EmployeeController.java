@@ -1,9 +1,6 @@
 package com.example.employee.controller;
 
-import com.example.employee.dto.AllEmployeeInfoOutDto;
-import com.example.employee.dto.EmployeeSimpleInfoOutDto;
-import com.example.employee.dto.OneEmployeeInDto;
-import com.example.employee.dto.OneEmployeeOutDto;
+import com.example.employee.dto.*;
 import com.example.employee.service.AuthenClient;
 import com.example.employee.service.EmployeeService;
 import jakarta.annotation.Resource;
@@ -37,8 +34,8 @@ public class EmployeeController {
     {
         // check token
         if (token == null) return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        ResponseEntity<Boolean> check = authenClient.checkToken(token);
-        if (check.getBody() == null || !check.getBody())
+        ResponseEntity<TokenInfo> check = authenClient.checkToken(token);
+        if (check.getBody() == null || !check.getBody().getActive())
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 
         List<AllEmployeeInfoOutDto> result = employeeService.getAllEmployeeInfo();
@@ -58,16 +55,17 @@ public class EmployeeController {
     // Get one employee info
     @RequestMapping(value = "employee", method = RequestMethod.GET)
     public ResponseEntity<OneEmployeeOutDto> getAllEmployees(
-            @RequestParam(value = "id", required = true) String id,
+            @RequestParam(value = "id", required = false) String id,
             @RequestParam(value = "token", required = false) String token
     )
     {
         // check token
         if (token == null) return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        ResponseEntity<Boolean> check = authenClient.checkToken(token);
-        if (check.getBody() == null || !check.getBody())
+        ResponseEntity<TokenInfo> check = authenClient.checkToken(token);
+        if (check.getBody() == null || !check.getBody().getActive())
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 
+        if (id == null) id = check.getBody().getUsername();
         OneEmployeeOutDto result = employeeService.getOneEmployeeInfo(id);
         if (result == null) {
             return new ResponseEntity(HttpStatus.NO_CONTENT);
@@ -106,8 +104,8 @@ public class EmployeeController {
     {
         // check token
         if (token == null) return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        ResponseEntity<Boolean> check = authenClient.checkToken(token);
-        if (check.getBody() == null || !check.getBody())
+        ResponseEntity<TokenInfo> check = authenClient.checkToken(token);
+        if (check.getBody() == null || !check.getBody().getActive())
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 
         if (employeeService.deleteEmployee(id)) {
