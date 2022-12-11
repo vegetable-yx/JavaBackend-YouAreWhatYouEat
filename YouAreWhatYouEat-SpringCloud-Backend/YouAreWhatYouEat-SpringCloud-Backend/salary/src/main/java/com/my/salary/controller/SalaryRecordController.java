@@ -12,13 +12,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/api/v1/prizeRecord")
-public class PrizeRecordController {
+@RequestMapping("/api/v1/salaryRecord")
+@CrossOrigin
+public class SalaryRecordController {
 
     private final SalaryService salaryService;
 
     @Autowired
-    public PrizeRecordController(SalaryService salaryService) {
+    public SalaryRecordController(SalaryService salaryService) {
         this.salaryService = salaryService;
     }
 

@@ -20,6 +20,7 @@ import java.util.Optional;
 @Slf4j
 @Controller
 @RequestMapping(value = "/api/v1/ingredient")
+@CrossOrigin
 public class IngController {
     private final IngServiceImpl ingService;
 

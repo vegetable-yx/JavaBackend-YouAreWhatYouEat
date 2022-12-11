@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @Controller
 @RequestMapping(value = "/api/v1/asset")
+@CrossOrigin
 public class AssetController {
 
     private final AssetsService assetsService;

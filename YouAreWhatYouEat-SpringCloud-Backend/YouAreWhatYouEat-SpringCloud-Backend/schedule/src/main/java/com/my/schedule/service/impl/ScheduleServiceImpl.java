@@ -101,6 +101,8 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Override
     public List<EmployeeInfo> getFreeEmployee(String start, String end, String place, String occupation) {
+        System.out.println("start " + start);
+        System.out.println("end " + end);
         Timestamp startDate, endDate;
         if (start != null) startDate = Timestamp.valueOf(start);
         else startDate = Timestamp.valueOf("0001-01-01 00:00:00");

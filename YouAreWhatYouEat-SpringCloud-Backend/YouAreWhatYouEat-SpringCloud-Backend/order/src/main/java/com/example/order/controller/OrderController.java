@@ -11,6 +11,7 @@ import java.math.BigInteger;
 
 @Controller
 @RequestMapping(value = "/api/v1")
+@CrossOrigin
 public class OrderController {
     private OrderService orderService;
 

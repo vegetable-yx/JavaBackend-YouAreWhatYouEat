@@ -20,6 +20,7 @@ import java.util.List;
 @Slf4j
 @Controller
 @RequestMapping(value = "/api/v1/dishes")
+@CrossOrigin
 public class DishesController {
 
     private final DishesService dishesService;

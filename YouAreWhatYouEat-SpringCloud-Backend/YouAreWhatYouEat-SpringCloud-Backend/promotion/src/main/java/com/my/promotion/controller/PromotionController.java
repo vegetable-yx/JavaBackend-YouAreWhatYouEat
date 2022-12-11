@@ -17,6 +17,7 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("/api/v1/promotions")
+@CrossOrigin
 public class PromotionController {
 
     private final PromotionService promotionService;

@@ -14,6 +14,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/api/v1/schedules")
+@CrossOrigin
 public class ScheduleController {
 
     private final ScheduleService scheduleService;
@@ -25,12 +26,14 @@ public class ScheduleController {
 
     @GetMapping("")
     public ResponseEntity<List<ScheduleInfo>> getScheduleInfo(
-            @RequestParam String start,
-            @RequestParam String end,
-            @RequestParam String id,
-            @RequestParam String place,
-            @RequestParam String occupation
+            @RequestParam(required = false) String start,
+            @RequestParam(required = false) String end,
+            @RequestParam(required = false) String id,
+            @RequestParam(required = false) String place,
+            @RequestParam(required = false) String occupation
     ) {
+        System.out.println("start " + start);
+        System.out.println("end " + end);
         List<ScheduleInfo> ret = scheduleService.getScheduleInfo(start, end, id, place, occupation);
         if (ret == null) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
