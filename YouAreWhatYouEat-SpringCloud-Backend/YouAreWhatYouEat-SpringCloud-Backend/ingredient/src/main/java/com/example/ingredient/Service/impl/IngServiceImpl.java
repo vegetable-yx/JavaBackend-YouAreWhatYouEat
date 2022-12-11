@@ -65,6 +65,7 @@ public class IngServiceImpl implements IngService {
 
         List<IngredientsEntity> ls=ingRepository.findAll();
         if(ls==null){
+            System.out.println("ls is null");
             return null;
         }
         GetIng result=new GetIng();
@@ -83,7 +84,7 @@ public class IngServiceImpl implements IngService {
 
 
         }
-
+        System.out.println(result.toString());
         return result;
     }
 

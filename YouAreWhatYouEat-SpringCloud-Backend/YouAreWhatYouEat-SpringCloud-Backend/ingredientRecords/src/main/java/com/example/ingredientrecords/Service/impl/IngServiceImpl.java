@@ -33,7 +33,7 @@ public class IngServiceImpl implements IngRecordsService {
 
         for(IngredientRecordEntity ingredientRecordEntity:ingredientsEntities){
             GetIngRecords item=new GetIngRecords();
-            item.setRecord_id(ingredientRecordEntity.getRecordId());
+            item.setRecord_id(ingredientRecordEntity.getRecordId().toString());
             item.setIng_name(ingredientsRepository.findNameById(ingredientRecordEntity.getIngrId()).get(0));
             if(ingredientRecordEntity.getSurplus()!=null)
             {

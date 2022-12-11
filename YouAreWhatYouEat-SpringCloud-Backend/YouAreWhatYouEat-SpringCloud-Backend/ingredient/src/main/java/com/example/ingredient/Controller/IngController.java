@@ -31,12 +31,13 @@ public class IngController {
     }
 
     @GetMapping("")
-    public ResponseEntity<Object> getAllIngs(@RequestParam Optional<String> ingrName){
+    public ResponseEntity<Object> getAllIngs(@RequestParam(required = false) String ingrName){
         GetIng ls;
-        if(ingrName.isEmpty()){
+        if(ingrName == null || ingrName.isEmpty()){
+            System.out.println("null");
              ls=ingService.getIngMessage();
         }else{
-            ls=ingService.getIngMessage(ingrName.get());
+            ls=ingService.getIngMessage(ingrName);
         }
         if(ls==null){
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
