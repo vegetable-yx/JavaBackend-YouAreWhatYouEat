@@ -344,6 +344,8 @@ public class OrderDishServiceImpl implements OrderDishService {
 
         String order_id = "";
 
+
+
         do {
             Random random = new Random();
             order_id = "";
@@ -380,27 +382,33 @@ public class OrderDishServiceImpl implements OrderDishService {
 
             String dish_order_id = "";
 
-            do {
-                Random random = new Random();
-                dish_order_id = "";
+            int a = Integer.valueOf(dish.getDish_num().toString());
+            for (int j = 0; j < a; j++) {
+                do {
+                    Random random = new Random();
+                    dish_order_id = "";
 
-                for (int i = 0; i < 11; i++)
-                {
-                    Integer r = random.nextInt(0, 62);
-                    if (r < 10) dish_order_id += r.toString();
-                    else if (r < 36) dish_order_id += (char)(97 + r - 10);
-                    else dish_order_id += (char)(65 + r - 36);
+                    for (int i = 0; i < 11; i++)
+                    {
+                        Integer r = random.nextInt(0, 62);
+                        if (r < 10) dish_order_id += r.toString();
+                        else if (r < 36) dish_order_id += (char)(97 + r - 10);
+                        else dish_order_id += (char)(65 + r - 36);
+                    }
+                }while(dishOrderListRepository.findByDishOrderId(dish_order_id)!=null);
+
+                dishorderlistEntity.setDishOrderId(dish_order_id);
+
+                try {
+                    dishOrderListRepository.saveAndFlush(dishorderlistEntity);
+                } catch (Exception e) {
+                    System.out.println("Create dish_order error!");
+                    return null;
                 }
-            }while(dishOrderListRepository.findByDishOrderId(dish_order_id)!=null);
 
-            dishorderlistEntity.setDishOrderId(dish_order_id);
-
-            try {
-                dishOrderListRepository.saveAndFlush(dishorderlistEntity);
-            } catch (Exception e) {
-                System.out.println("Create dish_order error!");
-                return null;
             }
+
+
 
         }
 
@@ -510,27 +518,31 @@ public class OrderDishServiceImpl implements OrderDishService {
 
             String dish_order_id = "";
 
-            do {
-                Random random = new Random();
-                dish_order_id = "";
+            int a = Integer.valueOf(dish.getDish_num().toString());
+            for (int j = 0; j < a; j++) {
+                do {
+                    Random random = new Random();
+                    dish_order_id = "";
+                    for (int i = 0; i < 11; i++)
+                    {
+                        Integer r = random.nextInt(0, 62);
+                        if (r < 10) dish_order_id += r.toString();
+                        else if (r < 36) dish_order_id += (char)(97 + r - 10);
+                        else dish_order_id += (char)(65 + r - 36);
+                    }
+                }while(dishOrderListRepository.findByDishOrderId(dish_order_id)!=null);
 
-                for (int i = 0; i < 11; i++)
-                {
-                    Integer r = random.nextInt(0, 62);
-                    if (r < 10) dish_order_id += r.toString();
-                    else if (r < 36) dish_order_id += (char)(97 + r - 10);
-                    else dish_order_id += (char)(65 + r - 36);
+                dishorderlistEntity.setDishOrderId(dish_order_id);
+
+                try {
+                    dishOrderListRepository.saveAndFlush(dishorderlistEntity);
+                } catch (Exception e) {
+                    System.out.println("Create dish_order error!");
+                    return false;
                 }
-            }while(dishOrderListRepository.findByDishOrderId(dish_order_id)!=null);
-
-            dishorderlistEntity.setDishOrderId(dish_order_id);
-
-            try {
-                dishOrderListRepository.saveAndFlush(dishorderlistEntity);
-            } catch (Exception e) {
-                System.out.println("Create dish_order error!");
-                return false;
             }
+
+
 
         }
 
