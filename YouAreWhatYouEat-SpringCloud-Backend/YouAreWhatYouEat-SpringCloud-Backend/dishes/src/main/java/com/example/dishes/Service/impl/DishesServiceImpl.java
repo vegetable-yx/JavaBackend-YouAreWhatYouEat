@@ -119,23 +119,20 @@ public class DishesServiceImpl implements DishesService {
 
     @Override
     public List<GetDishItem2> getAllDishes2() {
-        List<GetDishItem2> result=new ArrayList<>();
+        List<GetDishItem2> result = new ArrayList<>();
 
-        GetDishItem2 item=new GetDishItem2();
-
-        List<DishesEntity> dishesEntities=dishesRepository.findAll();
-        if(dishesEntities.size()==0){
-            return  null;
+        List<DishesEntity> dishesEntities = dishesRepository.findAll();
+        if (dishesEntities.size() == 0) {
+            return new ArrayList<>();
         }
 
-        for(DishesEntity d:dishesEntities){
-
-            List<DishHasTagEntity> tagLs=new ArrayList<DishHasTagEntity>(d.getTags());
-            List<String> tags=new ArrayList<>();
+        for (DishesEntity d : dishesEntities) {
+            GetDishItem2 item = new GetDishItem2();
+            Collection<DishHasTagEntity> tagLs = d.getTags();
+            List<String> tags = new ArrayList<>();
             //tag
-            for(DishHasTagEntity dishHasTagEntity:tagLs){
-                Collection<String> tagNames=dishTagsRepository.FindDtagNameById(dishHasTagEntity.getDtagId());
-
+            for (DishHasTagEntity dishHasTagEntity : tagLs) {
+                Collection<String> tagNames = dishTagsRepository.FindDtagNameById(dishHasTagEntity.getDtagId());
                 tags.addAll(tagNames);
             }
             item.setTags(tags);
@@ -146,9 +143,6 @@ public class DishesServiceImpl implements DishesService {
 
             result.add(item);
         }
-
-
-
         return result;
     }
 

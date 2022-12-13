@@ -1,11 +1,9 @@
 package com.example.dishes.dto.Dish;
-import com.example.dishes.Entity.DishHasTagEntity;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigInteger;
 import java.util.List;
 
 @Data
@@ -31,6 +29,5 @@ public class GetDishItem {
     List<String> tags;
     @JsonProperty("ingredient")
     List<String> ingredient;
-
 
 }
