@@ -6,3 +6,5 @@ YouAreWhatYouEat-SpringCloud-Backend/YouAreWhatYouEat-SpringCloud-Backend/ingred
 YouAreWhatYouEat-SpringCloud-Backend/YouAreWhatYouEat-SpringCloud-Backend/orderLists/src/main/resources/application.properties
 YouAreWhatYouEat-SpringCloud-Backend/YouAreWhatYouEat-SpringCloud-Backend/ingredient/src/main/resources/application.properties
 YouAreWhatYouEat-SpringCloud-Backend/YouAreWhatYouEat-SpringCloud-Backend/vip/src/main/resources/application.properties
+YouAreWhatYouEat-SpringCloud-Backend/YouAreWhatYouEat-SpringCloud-Backend/orderDish/src/main/resources/application.properties
+YouAreWhatYouEat-SpringCloud-Backend/YouAreWhatYouEat-SpringCloud-Backend/pay/src/main/resources/application.properties
