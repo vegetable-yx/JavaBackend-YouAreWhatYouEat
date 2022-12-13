@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient(value = "authen", url = "localhost:18084/api/v1")
+@FeignClient(value = "authen", url = "localhost:18200/AUTHEN/api/v1")
 public interface AuthenClient {
     @RequestMapping(value = "tokenLegality", method = RequestMethod.GET)
     public ResponseEntity<TokenInfo> checkToken(

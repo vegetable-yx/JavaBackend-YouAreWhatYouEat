@@ -20,6 +20,7 @@ public class GatewayConfiguration {
         CorsConfiguration config = new CorsConfiguration();
         config.addAllowedMethod("*");
         config.addAllowedOrigin("http://localhost:3000");
+        config.addAllowedOrigin("http://localhost:18086");
         config.addAllowedHeader("*");
         config.setAllowCredentials(true);
 
