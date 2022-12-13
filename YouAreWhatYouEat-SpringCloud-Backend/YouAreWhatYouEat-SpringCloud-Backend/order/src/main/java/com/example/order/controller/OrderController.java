@@ -11,7 +11,7 @@ import java.math.BigInteger;
 
 @Controller
 @RequestMapping(value = "/api/v1")
-@CrossOrigin
+
 public class OrderController {
     private OrderService orderService;
 
@@ -43,10 +43,9 @@ public class OrderController {
 
     @RequestMapping(value = "/orderDish",method = RequestMethod.GET)
     @ResponseBody
-    public AllOrderDishInfo getAllDishInOrder(@RequestBody OrderByIdQuery query)
+    public AllOrderDishInfo getAllDishInOrder(@RequestParam String order_id)
     {
-        System.out.println(query.getOrder_id());
-        return orderService.getAllDishInOrder(query);
+        return orderService.getAllDishInOrder(order_id);
     }
 
     @RequestMapping(value = "/order", method = RequestMethod.PUT)

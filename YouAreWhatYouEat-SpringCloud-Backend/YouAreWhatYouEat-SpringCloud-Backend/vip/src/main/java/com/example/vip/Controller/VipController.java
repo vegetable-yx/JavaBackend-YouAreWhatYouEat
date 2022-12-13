@@ -19,7 +19,7 @@ import java.util.Optional;
 @Slf4j
 @Controller
 @RequestMapping(value = "/api/v1/vips")
-@CrossOrigin
+
 public class VipController {
     private final VipService vipService;
 

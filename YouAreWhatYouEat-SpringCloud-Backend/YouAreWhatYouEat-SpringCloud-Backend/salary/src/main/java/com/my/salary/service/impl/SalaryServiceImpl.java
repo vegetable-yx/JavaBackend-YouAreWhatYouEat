@@ -40,7 +40,6 @@ public class SalaryServiceImpl implements SalaryService {
 
     @Override
     public List<SalaryInfo> getSalaryInfo() {
-        log.info("hahaha");
         List<SalaryEntity> salaries = salaryRepository.findAll();
         List<SalaryInfo> salaryInfos = new ArrayList<>();
         for (SalaryEntity salary : salaries) {
@@ -74,7 +73,7 @@ public class SalaryServiceImpl implements SalaryService {
                 if (occupation != null && !employee.get().getOccupation().equals(occupation)) {
                     continue;
                 }
-                Optional<SalaryEntity> salary = salaryRepository.findFirstByOccupation(occupation);
+                Optional<SalaryEntity> salary = salaryRepository.findFirstByOccupation(employee.get().getOccupation());
                 if (salary.isEmpty()) {
                     continue;
                 }
@@ -114,7 +113,9 @@ public class SalaryServiceImpl implements SalaryService {
     @Transactional
     @Override
     public HttpStatus postOneSalaryRecordInfo(PostSalaryRecord p) {
+        System.out.println("in");
         if (p.getId() == null || p.getTime() == null) {
+            System.out.println("bad");
             return HttpStatus.BAD_REQUEST;
         }
         try {
@@ -122,9 +123,11 @@ public class SalaryServiceImpl implements SalaryService {
             payroll.setEmployeeId(BigInteger.valueOf(Long.parseLong(p.getId())));
             payroll.setPayDatetime(Timestamp.valueOf(p.getTime()));
             payRollRepository.saveAndFlush(payroll);
+            System.out.println("suc");
             return HttpStatus.CREATED;
         }
         catch (Exception e) {
+            System.out.println("err");
             return HttpStatus.INTERNAL_SERVER_ERROR;
         }
     }

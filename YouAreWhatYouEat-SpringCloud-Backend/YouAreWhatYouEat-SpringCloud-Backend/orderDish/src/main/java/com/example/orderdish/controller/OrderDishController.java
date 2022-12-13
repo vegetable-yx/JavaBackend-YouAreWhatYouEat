@@ -19,7 +19,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping(value = "/api/v1")
-@CrossOrigin
+
 public class OrderDishController {
     private OrderDishService orderDishService;
 

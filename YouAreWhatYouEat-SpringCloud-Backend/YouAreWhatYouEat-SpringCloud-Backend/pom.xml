@@ -37,6 +37,7 @@
         <module>table</module>
         <module>vip</module>
         <module>authen</module>
+        <module>gateway</module>
     </modules>
 
     <properties>

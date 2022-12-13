@@ -17,7 +17,6 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("/api/v1/promotions")
-@CrossOrigin
 public class PromotionController {
 
     private final PromotionService promotionService;
@@ -44,7 +43,8 @@ public class PromotionController {
         return new ResponseEntity<>(promotionService.postPromotion(p));
     }
 
-    @DeleteMapping("")
+    
+    @RequestMapping(value = "", method = RequestMethod.DELETE)
     public ResponseEntity<Object> deletePromotion(@RequestParam BigInteger id) {
         return new ResponseEntity<>(promotionService.deletePromotion(id));
     }

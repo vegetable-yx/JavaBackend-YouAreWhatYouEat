@@ -21,7 +21,7 @@ import java.util.List;
 @Slf4j
 @Controller
 @RequestMapping(value = "/api/v1/orderlists")
-@CrossOrigin
+
 public class OrderListsController {
 
     private final OdLsServiceImpl odLsService;

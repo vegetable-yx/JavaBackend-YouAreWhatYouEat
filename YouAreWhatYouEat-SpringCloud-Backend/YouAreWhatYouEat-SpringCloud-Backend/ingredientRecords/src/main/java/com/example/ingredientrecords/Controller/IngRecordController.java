@@ -16,7 +16,7 @@ import java.util.List;
 @Slf4j
 @Controller
 @RequestMapping(value = "/api/v1/ingredientRecords")
-@CrossOrigin
+
 public class IngRecordController {
 
     private final IngServiceImpl ingService;

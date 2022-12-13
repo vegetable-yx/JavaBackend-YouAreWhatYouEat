@@ -16,7 +16,7 @@ import java.util.Objects;
 @Slf4j
 @Controller
 @RequestMapping("/api/v1/salary")
-@CrossOrigin
+
 public class SalaryController {
 
     private final SalaryService salaryService;

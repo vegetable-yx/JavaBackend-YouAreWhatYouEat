@@ -13,5 +13,5 @@ public interface OrderService {
 
     boolean setOrderStatus(ChangeOrderInfoRequest request);
 
-    AllOrderDishInfo getAllDishInOrder(OrderByIdQuery query);
+    AllOrderDishInfo getAllDishInOrder(String query);
 }

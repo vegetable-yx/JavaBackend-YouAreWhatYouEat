@@ -13,7 +13,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/api/v1/salaryRecord")
-@CrossOrigin
+
 public class SalaryRecordController {
 
     private final SalaryService salaryService;
@@ -25,10 +25,10 @@ public class SalaryRecordController {
 
     @GetMapping("")
     public ResponseEntity<List<SalaryRecord>> getSalaryRecord(
-            @RequestParam String occupation,
-            @RequestParam String id,
-            @RequestParam String time_start,
-            @RequestParam String time_end
+            @RequestParam(required = false) String occupation,
+            @RequestParam(required = false) String id,
+            @RequestParam(required = false) String time_start,
+            @RequestParam(required = false) String time_end
     ) {
         List<SalaryRecord> records = salaryService.getSalaryRecord(occupation, id, time_start, time_end);
         if (records == null) {

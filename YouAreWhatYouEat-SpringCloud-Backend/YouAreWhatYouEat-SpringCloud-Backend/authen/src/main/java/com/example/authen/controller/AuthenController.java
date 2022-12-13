@@ -12,7 +12,7 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("api/v1/")
-@CrossOrigin
+
 public class AuthenController {
     @Resource
     private MyTokenService myTokenService;

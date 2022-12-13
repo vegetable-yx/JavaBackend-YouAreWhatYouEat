@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/api/v1/sensors")
-@CrossOrigin
+
 public class SensorController {
     private final SensorService sensorService;
 

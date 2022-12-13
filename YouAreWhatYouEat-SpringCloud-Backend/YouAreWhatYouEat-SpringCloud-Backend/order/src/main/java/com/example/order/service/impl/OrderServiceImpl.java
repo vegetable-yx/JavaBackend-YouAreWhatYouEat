@@ -198,10 +198,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public AllOrderDishInfo getAllDishInOrder(OrderByIdQuery query)
+    public AllOrderDishInfo getAllDishInOrder(String query)
     {
+        System.out.println(query);
         AllOrderDishInfo result=new AllOrderDishInfo();
-        List<DishorderlistEntity> dishorderlistEntities=dishOrderListRepository.findAllByOrderId(query.getOrder_id());
+        List<DishorderlistEntity> dishorderlistEntities=dishOrderListRepository.findAllByOrderId(query);
 
         Double totalPrice=0d;
         for (DishorderlistEntity dish:dishorderlistEntities

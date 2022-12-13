@@ -14,7 +14,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/api/v1/schedules")
-@CrossOrigin
+
 public class ScheduleController {
 
     private final ScheduleService scheduleService;

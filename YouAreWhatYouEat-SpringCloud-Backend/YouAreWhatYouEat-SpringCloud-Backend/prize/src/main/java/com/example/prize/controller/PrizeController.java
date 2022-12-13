@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1")
-@CrossOrigin
+
 public class PrizeController {
     @Autowired
     private PrizeService prizeService;

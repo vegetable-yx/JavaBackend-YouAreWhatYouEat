@@ -1,0 +1,23 @@
+server:
+  port: 18200
+
+spring:
+  main:
+    web-application-type: reactive
+  application:
+    name: gateway
+
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:18082/eureka/
+
+logging:
+  level:
+    org.springframework.cloud.gateway: debug
