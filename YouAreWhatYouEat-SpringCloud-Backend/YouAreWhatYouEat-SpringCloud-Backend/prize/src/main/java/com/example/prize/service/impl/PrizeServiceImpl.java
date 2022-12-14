@@ -58,14 +58,14 @@ public class PrizeServiceImpl implements PrizeService {
         ModelMapper modelMapper = new ModelMapper();
 
         for (PrizeEntity prizeEntity : prizeEntities) {
-            if (!level.isEmpty() && !level.equals(prizeEntity.getLv())) continue;
-            if (!id.isEmpty() && !id.equals(prizeEntity.getEmployeeId().toString())) continue;
+            if (level != null && !level.isEmpty() && !level.equals(prizeEntity.getLv())) continue;
+            if (id != null && !id.isEmpty() && !id.equals(prizeEntity.getEmployeeId().toString())) continue;
 
             Date start, end;
             SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
-            if (time_start.isEmpty()) start = ft.parse("1970-1-1 0:0:0");
+            if (time_start == null || time_start.isEmpty()) start = ft.parse("1970-1-1 0:0:0");
             else start = ft.parse(time_start);
-            if (time_end.isEmpty()) end = ft.parse("2999-12-12 23:59:59");
+            if (time_end == null || time_end.isEmpty()) end = ft.parse("2999-12-12 23:59:59");
             else end = ft.parse(time_end);
 
             System.out.println(ft.format(start));

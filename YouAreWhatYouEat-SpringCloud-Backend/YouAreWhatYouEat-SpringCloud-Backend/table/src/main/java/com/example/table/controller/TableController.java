@@ -43,16 +43,16 @@ public class TableController {
     @RequestMapping(value = "/table", method = RequestMethod.PUT)
     public ResponseEntity setTableStatus(@RequestBody PutTableParam info)
     {
-        System.out.println(info);
+        return new ResponseEntity(HttpStatus.OK);
 
-        if(tableService.setTableStatus(info))
-        {
-            return new ResponseEntity(HttpStatus.OK);
-        }
-        else
-        {
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
-        }
+//        if(tableService.setTableStatus(info))
+//        {
+//            return new ResponseEntity(HttpStatus.OK);
+//        }
+//        else
+//        {
+//            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+//        }
     }
 
     @RequestMapping(value = "/seat", method = RequestMethod.GET)
