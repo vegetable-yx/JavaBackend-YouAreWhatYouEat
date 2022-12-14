@@ -45,7 +45,7 @@ public class AssetsServiceImpl implements AssetsService {
     @Override
     public AssetMessage getAsset(String assetsType) {
         AssetMessage msg = new AssetMessage();
-        if (assetsType != null) {
+        if (assetsType != null && !assetsType.isEmpty()) {
             Optional<AssetsEntity> assetsEntity = assetRepository.findFirstByAssetsType(assetsType);
             if (assetsEntity.isEmpty()) { return null; }
             Optional<EmployeeEntity> assetsOwner = this.employeeRepository.findById(assetsEntity.get().getEmployeeId());

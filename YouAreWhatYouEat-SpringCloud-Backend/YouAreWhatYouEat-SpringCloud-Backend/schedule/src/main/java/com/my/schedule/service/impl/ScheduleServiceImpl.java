@@ -153,10 +153,13 @@ public class ScheduleServiceImpl implements ScheduleService {
 
             List<WorkPlanEntity> workPlanEntities = workPlanRepository.findAll();
             BigInteger id = BigInteger.ONE;
-            Optional<WorkPlanEntity> maxId = workPlanEntities.stream().max((w1, w2) -> w1.getId().compareTo(w2.getId()));
-            if (maxId.isPresent()) {
-                id = maxId.get().getId();
+            BigInteger maxId = BigInteger.ONE;
+            for (WorkPlanEntity w : workPlanEntities) {
+                if (w.getId().compareTo(maxId) > 0) {
+                    maxId = w.getId();
+                }
             }
+            id = maxId.add(BigInteger.ONE);
             WorkPlanEntity workPlan = new WorkPlanEntity();
             workPlan.setTimeStart(start);
             workPlan.setTimeEnd(end);
