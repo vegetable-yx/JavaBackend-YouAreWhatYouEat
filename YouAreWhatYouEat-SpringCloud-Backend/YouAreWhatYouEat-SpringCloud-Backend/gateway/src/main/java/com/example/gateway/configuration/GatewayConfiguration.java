@@ -7,12 +7,6 @@ import org.springframework.web.cors.reactive.CorsWebFilter;
 import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 import org.springframework.web.util.pattern.PathPatternParser;
 
-/**
- * CorsConfig
- *
- * @author 卓正一
- * @since 2021/11/30 1:17 PM
- */
 @Configuration
 public class GatewayConfiguration {
     @Bean
@@ -21,6 +15,7 @@ public class GatewayConfiguration {
         config.addAllowedMethod("*");
         config.addAllowedOrigin("http://localhost:3000");
         config.addAllowedOrigin("http://localhost:18086");
+        config.addAllowedOrigin("*");
         config.addAllowedHeader("*");
         config.setAllowCredentials(true);
 
