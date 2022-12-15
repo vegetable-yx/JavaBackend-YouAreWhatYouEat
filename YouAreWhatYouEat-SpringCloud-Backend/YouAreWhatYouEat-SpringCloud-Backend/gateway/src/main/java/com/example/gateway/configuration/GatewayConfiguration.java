@@ -14,7 +14,10 @@ public class GatewayConfiguration {
         CorsConfiguration config = new CorsConfiguration();
         config.addAllowedMethod("*");
         config.addAllowedOrigin("http://localhost:3000");
+        config.addAllowedOrigin("http://47.100.205.153:3000");
+        config.addAllowedOrigin("http://47.100.205.153:3001");
         config.addAllowedOrigin("http://localhost:18086");
+        config.addAllowedOrigin("http://47.100.205.153:18086");
         config.addAllowedHeader("*");
         config.setAllowCredentials(true);
 
