@@ -15,7 +15,6 @@ public class GatewayConfiguration {
         config.addAllowedMethod("*");
         config.addAllowedOrigin("http://localhost:3000");
         config.addAllowedOrigin("http://localhost:18086");
-        config.addAllowedOrigin("*");
         config.addAllowedHeader("*");
         config.setAllowCredentials(true);
 
